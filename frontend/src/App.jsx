@@ -1,7 +1,8 @@
+import Header from "./components/header";
 
 function App() {
   return (
-    <h1>React App</h1>
+    <Header />
   );
 }
 
