@@ -4,6 +4,7 @@ const Schema = new mongoose.Schema({
     username:{ 
         type: String,
         required: true,
+    },
 
     farm:{
         type: String,
@@ -46,6 +47,6 @@ const Schema = new mongoose.Schema({
     }
 
     
-}});
+});
 
 module.exports = mongoose.model('User', Schema);
