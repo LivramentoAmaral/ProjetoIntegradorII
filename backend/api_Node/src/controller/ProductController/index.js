@@ -9,9 +9,9 @@ const ProductController = {
 
         try {
 
-            const newProduct = await Product.create({username:user_id, ...bodyData});
-            await newProduct.populate('username');
-            
+            const newProduct = await Product.create({ username: user_id, ...bodyData });
+            await newProduct.populate("username");
+
             return res.status(201).json(newProduct);
 
         } catch (error) {
@@ -23,8 +23,12 @@ const ProductController = {
 
     async getUserProducts(req, res) {
 
+        const { user_id } = req.params
+
         try {
 
+            const userProducts = await Product.find({ username: user_id });
+            return res.status(201).json(userProducts);
         } catch (error) {
             return res.status(400).json(error);
         }
@@ -33,7 +37,13 @@ const ProductController = {
 
     async updateProduct(req, res) {
 
+        const bodyData = req.body
+        const {user_id, product_id} = req.params
+
         try {
+
+          const updatedProduct = await Product.findByIdAndUpdate(product_id,bodyData,{new:true})
+          return res.status(201).json(updatedProduct)
 
         } catch (error) {
             return res.status(400).json(error);
@@ -43,7 +53,13 @@ const ProductController = {
 
     async deleteProduct(req, res) {
 
+        const bodyData = req.body
+        const {user_id, product_id} = req.params
+        
         try {
+
+            const deletedProduct = await Product.findByIdAndDelete(product_id)
+            return res.status(201).json(deletedProduct)
 
         } catch (error) {
             return res.status(400).json(error);
@@ -55,6 +71,9 @@ const ProductController = {
 
         try {
 
+            const productsAll = await Product.find();
+            return res.status(201).json(productsAll);
+
         } catch (error) {
             return res.status(400).json(error);
         }
@@ -63,7 +82,12 @@ const ProductController = {
 
     async getProductById(req, res) {
 
+        const { product_id } = req.params
+
         try {
+                
+                const productById = await Product.findById(product_id);
+                return res.status(201).json(productById);
 
         } catch (error) {
             return res.status(400).json(error);
