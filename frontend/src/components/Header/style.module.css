@@ -18,10 +18,7 @@
     background-size: cover;
     background-position: center;
     border-radius: 0px 0px 15px 15px;
-    position: fixed;
-    top: 10;
-    left: 0;
-    z-index: 1000;
+   
 }
 
 .sombragradiente {
