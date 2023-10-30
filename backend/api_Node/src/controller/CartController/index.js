@@ -1,4 +1,5 @@
 const Cart = require('../../models/Cart');
+const { use } = require('../../routes');
 
 const CartController = {
 
@@ -24,7 +25,12 @@ const CartController = {
 
     async getUserCart(req, res) {
 
+        const {user_id} = req.params;
+
         try {
+
+            const userCart = await Cart.find({username:user_id}).populate('products').populate("address");
+            return res.status(200).json(userCart);
 
         } catch (error) {
             return res.status(400).json(error)
@@ -34,7 +40,12 @@ const CartController = {
 
     async getCart(req, res) {
 
+        const {user_id, cart_id} = req.params;
+
         try {
+
+            const cart = await Cart.findById(cart_id).populate('products');
+            return res.status(200).json(cart);
 
         } catch (error) {
             return res.status(400).json(error)
