@@ -1,14 +1,14 @@
+import TestApiConnection from "./api/test";
 import Header from "./components/Header";
-import Rodape from "./components/footer";
 
 function App() {
   return (
-    <>
-    <Header/>
-    <br />
-   
-    <Rodape/>
-    </>
+    <div className="App">
+      <Header />
+      <br />
+
+      <TestApiConnection/>
+    </div>
   );
 }
 
