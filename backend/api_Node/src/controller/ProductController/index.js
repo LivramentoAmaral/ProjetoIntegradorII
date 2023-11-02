@@ -27,7 +27,7 @@ const ProductController = {
 
         try {
 
-            const userProducts = await Product.find({ username: user_id });
+            const userProducts = await Product.find({ username: user_id }).populate("farm");
             return res.status(201).json(userProducts);
         } catch (error) {
             return res.status(400).json(error);
@@ -71,7 +71,7 @@ const ProductController = {
 
         try {
 
-            const productsAll = await Product.find();
+            const productsAll = await Product.find().populate("username");
             return res.status(201).json(productsAll);
 
         } catch (error) {

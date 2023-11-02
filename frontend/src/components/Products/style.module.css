@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+.Container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Container>h1{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 10vh;
+}
+
+.containerGlobal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.containerProducts {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #E5E5E5;
+}
+
+.cardProduct {
+
+    width: 90%;
+    height: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+.cardProduct>img {
+    width: 50%;
+    width: 19.706rem;
+    border-radius: 10px;
+
+}
+
+.description {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 15px;
+    background: #F5F5F5;
+    padding: 15px;
+    gap: 30px;
+}
+
+.description>p {
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    color: #406126;
+    font-family: Nunito Sans;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-transform: capitalize;
+
+
+}
+
+.description>button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 5vh;
+    padding: 5px;
+    border-radius: 15px;
+    background: #7FA462;
+    border: none;
+    color: white;    
+    cursor: pointer;
+}
+
+.description>button:hover {
+    background: #406126;
+}
+.description>button>span{
+    font-size: 15px;
+    font-weight: bold;
+    line-height: normal;
+    text-transform: capitalize;
+    width: 10%;
+}
+
+
+.descriptionFarm {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    justify-content:center ;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.farm{
+
+    width: 100%;
+    display: flex;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: rgb(245, 245, 245);
+    border-radius: 15px;
+    font-size: 13px;
+    padding: 10px;
+}
+
