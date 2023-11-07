@@ -1,79 +1,37 @@
 import React from 'react';
 import style from "./style.module.css"
+import svg1 from"../../assets/social.svg"
+import svg2 from"../../assets/social1.svg"
+import svg3 from"../../assets/social2.svg"
+import svg4 from"../../assets/social3.svg"
+import svg5 from"../../assets/social5.svg"
+
 
 function Rodape() {
 
     return (
 
         <footer className={style.footer}>
-
-            <div className={style.footerContainer}>
-                <div className={style.center}>
-                    <div className={style.listcontaite}>
-                        <h3>Product</h3>
-                        <ul className={style.listaProduct}>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-
-                        </ul>
-                    </div>
-                    <div className={style.listcontaite}>
-                        <h3>Use cases</h3>
-                        <ul className={style.listaProduct}>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-
-                        </ul>
-                    </div>
-                    <div className={style.listcontaite}>
-                        <h3>Resousers</h3>
-                        <ul className={style.listaProduct}>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-
-                        </ul>
-                    </div>
-                    <div className={style.listcontaite}>
-                        <h3>Company</h3>
-                        <ul className={style.listaProduct}>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-                            <li><a href="#">Leadingpage</a></li>
-
-                        </ul>
-                    </div>
-                </div>
+            <div className={style.logo}>
+                <h1>Feira</h1>
 
             </div>
+            <div className={style.Followus}>
+                <h1>Siga-nos</h1>
+                <div className={style.icons}>
+                    
+                    <a href=""><img src={svg1} alt="" /></a>
+                    <a href=""><img src={svg2} alt="" /></a>
+                    <a href=""><img src={svg3} alt="" /></a>
+                    <a href=""><img src={svg4} alt="" /></a>
+                    <a href=""><img src={svg5} alt="" /></a>
 
-            <div className={style.logoLinks}>
-                <div className={style.centerLinks}>
-                    <div className={style.logo}>
-                        <h1>Feira</h1>
-                    </div>
-                    <div className={style.links}>
-                        <h3>Follow us</h3>
-                        <div className={style.linksredirect}>
-                            <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png" /></a>
-                            <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/twitter.png" /></a>
-                            <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png" /></a>
-                            <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/youtube-play.png" /></a>
-                        </div>
-                    </div>
                 </div>
-
             </div>
+            <div className={style.credicts}>
+                <p> © 2023 - Todos os direitos reservados</p>
+            </div>
+
 
         </footer>
 

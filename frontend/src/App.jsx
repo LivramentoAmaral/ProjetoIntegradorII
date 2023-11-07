@@ -1,9 +1,16 @@
-import Home from "./pages/Home";
+import FormCadastro from "./components/FormCadastro";
+import Header from "./components/Header";
+import Rodape from "./components/footer";
 
 function App() {
   return (
     <>
-      <Home />
+    <Header/>
+    <br />
+    <FormCadastro />
+
+    <br />
+    <Rodape />  
     </>
   );
 }
