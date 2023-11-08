@@ -1,42 +1,47 @@
 const mongoose = require('mongoose');
 
 const Schema = new mongoose.Schema({
-    username:{ 
+    username: {
         type: String,
         required: true,
     },
 
-    farm:{
+    farm: {
         type: String,
         required: true
     },
 
-    email:{
+    email: {
         type: String,
         required: true,
         unique: true,
     },
 
-    password:{
+    password: {
         type: String,
         required: true,
     },
 
-    phoneWhatzap:{
+    phoneWhatzap: {
         type: String,
         required: true,
     },
 
-    address:{
-        road:{
+    address: {
+
+        city:{
             type: String,
             required: true,
         },
-        number:{
+        road: {
             type: String,
             required: true,
         },
-        neighborhood:{
+        number: {
+            type: String,
+            required: true,
+        },
+        neighborhood: {
             type: String,
             required: true,
         },
@@ -46,7 +51,7 @@ const Schema = new mongoose.Schema({
 
     }
 
-    
+
 });
 
 module.exports = mongoose.model('User', Schema);

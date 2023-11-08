@@ -1,16 +1,11 @@
-import FormCadastro from "./components/FormCadastro";
-import Header from "./components/Header";
-import Rodape from "./components/footer";
+
+import React from "react";
+import Routers from "./routes";
 
 function App() {
   return (
     <>
-    <Header/>
-    <br />
-    <FormCadastro />
-
-    <br />
-    <Rodape />  
+      <Routers />
     </>
   );
 }
