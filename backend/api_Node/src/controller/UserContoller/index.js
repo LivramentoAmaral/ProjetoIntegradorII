@@ -21,7 +21,7 @@ const UserContoller ={
     async getUsers(req,res){
         try {
             const users = await User.find();
-            return res.status(201).json(users);
+            return res.status(200).json(users);
             
         } catch (error) {
             return res.status(400).json(error)
@@ -34,7 +34,7 @@ const UserContoller ={
         try {
             
             const user = await User.findById(user_id);
-            return res.status(201).json(user);
+            return res.status(200).json(user);
 
         } catch (error) {
             return res.status(400).json(error)

@@ -3,6 +3,7 @@ const UserContoller = require("../controller/UserContoller");
 const SessionController = require("../controller/LoginController");
 const ProductController = require("../controller/ProductController");
 const CartController = require("../controller/CartController");
+const UserClienteController = require("../controller/UserClienteController");
 const routes = Router();
 
 
@@ -14,6 +15,10 @@ routes.get('/', (req, res) => {
 routes.post("/users",UserContoller.createUser)
 routes.get("/users",UserContoller.getUsers)
 routes.get("/users/:user_id",UserContoller.getUserById)
+
+routes.post("/usersclient",UserClienteController.createUserClient)
+routes.get("/usersclient",UserClienteController.getUsers)
+routes.get("/usersclient/:user_id",UserClienteController.getUserById)
 
 routes.post("/session",SessionController.createSession)
 

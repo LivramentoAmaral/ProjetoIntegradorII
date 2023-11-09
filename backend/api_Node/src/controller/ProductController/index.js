@@ -28,7 +28,7 @@ const ProductController = {
         try {
 
             const userProducts = await Product.find({ username: user_id }).populate("farm");
-            return res.status(201).json(userProducts);
+            return res.status(200).json(userProducts);
         } catch (error) {
             return res.status(400).json(error);
         }
@@ -43,7 +43,7 @@ const ProductController = {
         try {
 
           const updatedProduct = await Product.findByIdAndUpdate(product_id,bodyData,{new:true})
-          return res.status(201).json(updatedProduct)
+          return res.status(200).json(updatedProduct)
 
         } catch (error) {
             return res.status(400).json(error);
@@ -59,7 +59,7 @@ const ProductController = {
         try {
 
             const deletedProduct = await Product.findByIdAndDelete(product_id)
-            return res.status(201).json(deletedProduct)
+            return res.status(200).json(deletedProduct)
 
         } catch (error) {
             return res.status(400).json(error);
@@ -72,7 +72,7 @@ const ProductController = {
         try {
 
             const productsAll = await Product.find().populate("username");
-            return res.status(201).json(productsAll);
+            return res.status(200).json(productsAll);
 
         } catch (error) {
             return res.status(400).json(error);
@@ -87,7 +87,7 @@ const ProductController = {
         try {
                 
                 const productById = await Product.findById(product_id);
-                return res.status(201).json(productById);
+                return res.status(200).json(productById);
 
         } catch (error) {
             return res.status(400).json(error);
