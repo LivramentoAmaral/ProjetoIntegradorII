@@ -11,7 +11,7 @@ function LoginCliente() {
             <br />
             <FormLoginCliente />
             <br />
-            <Rodape />
+            <Rodape/>
         </>
 
     )

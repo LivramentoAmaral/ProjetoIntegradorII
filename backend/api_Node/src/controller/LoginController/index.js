@@ -7,8 +7,9 @@ const SessionController = {
 
         try {
             const user = await User.findOne({ username, password });
+            const usercliente = await UserCliente.findOne({ username, password});
 
-            if (user) {
+            if (user || usercliente) {  
                 // Usuário encontrado, retornar os dados do usuário
                 return res.status(201).json(user);
             } else {
