@@ -12,7 +12,7 @@ function TestApiConnection() {
         const response = await api.get('/users');
         console.log(response.status)// Substitua '/test' pela rota de teste real da sua API
 
-        if (response.status === 201) {
+        if (response.status === 200) {
           setApiStatus('Conexão com a API bem-sucedida!');
         } else {
           setApiStatus('Erro ao conectar à API');

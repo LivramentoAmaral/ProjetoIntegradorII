@@ -13,7 +13,7 @@ function Routers() {
     <BrowserRouter>
       <Routes>
         <Route  path="/" element={<Home/>} />
-        <Route  path="/logincliente" element={<LoginCliente/>} />
+        <Route  path="/logi ncliente" element={<LoginCliente/>} />
         <Route  path="/loginvendedor" element={<LoginVendedor/>} />
         <Route  path="/cadastro" element={<Cadastro/>} />
 

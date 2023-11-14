@@ -5,13 +5,13 @@ import React from "react";
 function Home() {
   return (
     <>
-    <Header />
-    <br />
-    <br />
-    <ProductCard />
-    <br />
-    <Rodape />
-    
+      <Header />
+      <br />
+      <ProductCard />
+      <br />
+      <Rodape/>
+
+
     </>
   )
 }
