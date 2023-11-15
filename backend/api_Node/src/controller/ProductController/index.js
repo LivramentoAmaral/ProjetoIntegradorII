@@ -10,7 +10,7 @@ const ProductController = {
         try {
 
             const newProduct = await Product.create({ username: user_id, ...bodyData });
-            await newProduct.populate("username");
+            (await newProduct.populate("username")).populate("farm");
 
             return res.status(201).json(newProduct);
 
@@ -71,7 +71,7 @@ const ProductController = {
 
         try {
 
-            const productsAll = await Product.find().populate("username");
+            const productsAll = await Product.find().populate("username").populate("farm");
             return res.status(200).json(productsAll);
 
         } catch (error) {

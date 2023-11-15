@@ -17,7 +17,7 @@ function Routers() {
         <Route  path="/logincliente" element={<LoginCliente/>} />
         <Route  path="/loginvendedor" element={<LoginVendedor/>} />
         <Route  path="/cadastro" element={<Cadastro/>} />
-        <Route path="/Productsvendedor/:id" element={<ProductsVendedor/>}/>
+        <Route  path="/meusproducts" element={<ProductsVendedor/>} />
 
       </Routes>
     </BrowserRouter>
