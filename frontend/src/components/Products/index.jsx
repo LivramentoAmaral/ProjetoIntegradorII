@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import api from "../../api/index";
 import style from "./style.module.css";
 
-function ProductCard() {
+function ProductCard({ searchTerm }) {
     const [products, setProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true); 
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     useEffect(() => {
         const getAllProducts = async () => {
@@ -27,6 +28,17 @@ function ProductCard() {
         getAllProducts();
     }, []);
 
+    useEffect(() => {
+        if (searchTerm) {
+            const filtered = products.filter((product) =>
+                product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredProducts(filtered);
+        } else {
+            setFilteredProducts(products);
+        }
+    }, [searchTerm, products]);
+
     return (
         <div className={style.Container}>
             <h1>Lista de Produtos</h1>
@@ -38,7 +50,7 @@ function ProductCard() {
                 </div>
             ) : (
                 <div className={style.containerGlobal}>
-                    {products.map((productALL) => (
+                    {(searchTerm ? filteredProducts : products).map((productALL) => (
                         <div key={productALL._id} className={style.containerProducts}>
                             <div className={style.cardProduct}>
                                 {/* Exibir detalhes do produto aqui */}

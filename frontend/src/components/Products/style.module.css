@@ -44,7 +44,6 @@
     align-items: center;
     justify-content: center;
     padding: 10px;
-    border: 1px solid #E5E5E5;
 }
 
 .cardProduct {
@@ -56,8 +55,8 @@
 }
 
 .cardProduct>img {
-    width: 50%;
     width: 19.706rem;
+    height: 19.706rem;
     border-radius: 10px;
 
 }
