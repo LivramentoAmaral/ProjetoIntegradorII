@@ -1,0 +1,93 @@
+/* style.module.css */
+
+.Modal {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.57);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.24);
+
+}
+
+.Modal h2 {
+    margin-bottom: 15px;
+    color: white;
+}
+
+.conteudo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(11, 11, 11, 0.079);
+    flex-direction: column;
+
+}
+
+.Modal form {
+    display: flex;
+    flex-direction: column;
+    background: #F2F2F2;
+    width: 30%;
+    padding: 20px;
+    border-radius: 20px;
+
+}
+
+.form div {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.Modal form div label {
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 5px;
+    padding-left: 3px;
+
+}
+
+.Modal input {
+    width: 100%;
+    padding: 8px;
+    height: 5vh;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #E3E3E3;
+}
+
+.Modal textarea {
+    width: 100%;
+    height: 10vh;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    background: #E3E3E3;
+}
+
+.Modal button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+}
+
+.Modal button:nth-child(1) {
+    background-color: #28a745;
+    margin-right: 10px;
+}
+
+.Modal button:hover {
+    opacity: 0.8;
+}

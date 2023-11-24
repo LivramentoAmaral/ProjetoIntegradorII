@@ -23,15 +23,11 @@ const Schema = new mongoose.Schema({
 
     username:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: "User"
     },
-    farm:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    }
+
     
     
 });
 
 module.exports = mongoose.model('Products', Schema);
-

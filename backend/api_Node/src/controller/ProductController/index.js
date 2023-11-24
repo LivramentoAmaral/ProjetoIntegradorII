@@ -1,4 +1,5 @@
 const Product = require('../../models/Products')
+const User = require('../../models/User')
 
 const ProductController = {
 
@@ -10,7 +11,7 @@ const ProductController = {
         try {
 
             const newProduct = await Product.create({ username: user_id, ...bodyData });
-            (await newProduct.populate("username")).populate("farm");
+            await newProduct.populate("username");
 
             return res.status(201).json(newProduct);
 
@@ -27,7 +28,7 @@ const ProductController = {
 
         try {
 
-            const userProducts = await Product.find({ username: user_id }).populate("farm");
+            const userProducts = await Product.find({ username: user_id });
             return res.status(200).json(userProducts);
         } catch (error) {
             return res.status(400).json(error);
@@ -68,17 +69,37 @@ const ProductController = {
     },
 
     async getProducts(req, res) {
-
         try {
-
-            const productsAll = await Product.find().populate("username").populate("farm");
-            return res.status(200).json(productsAll);
-
+            const productsAll = await Product.find();
+            const productsWithUsers = await Promise.all(productsAll.map(async (product) => {
+                const user = await User.findById(product.username);
+    
+                // Verifica se o usuário foi encontrado
+                if (user) {
+                    // Adiciona os detalhes do usuário ao produto
+                    return {
+                        ...product.toObject(),
+                        username: {
+                            _id: user._id,
+                            farm: user.farm
+                            // Adicione aqui outros campos do usuário que você deseja incluir nos produtos
+                        }
+                    };
+                } else {
+                    // Se o usuário não foi encontrado, retorna o produto sem os detalhes do usuário
+                    return {
+                        ...product.toObject(),
+                        user: null // ou qualquer valor padrão que você queira definir
+                    };
+                }
+            }));
+            return res.status(200).json(productsWithUsers);
         } catch (error) {
             return res.status(400).json(error);
         }
-
-    },
+    }
+    
+    ,
 
     async getProductById(req, res) {
 

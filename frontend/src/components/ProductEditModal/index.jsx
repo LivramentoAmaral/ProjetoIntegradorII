@@ -1,6 +1,5 @@
 // ProductEditModal.jsx
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import api from "../../api";
 
 const ProductEditModal = ({ isOpen, onClose, onUpdate, product }) => {
