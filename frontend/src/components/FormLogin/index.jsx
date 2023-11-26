@@ -33,19 +33,25 @@ function FormLoginCliente() {
 
                     <button type="submit">Login</button>
 
+                    <div className={style.cadastro}>
+                    <Link to="/recuperarsenha">Esqueceu sua senha? </Link>
+                     <p>ou</p>
+                    <Link to="/cadastro">Deseja-se Cadastrar</Link>
+                    </div>
+
                 </div>
             </form>
 
             <div className={style.formRight}>
-                <h2>Ou faça Login como vendedor</h2>
-                <p>Bem-vindo, Vendedor! <br /> <br />
-                    Faça o login para acessar sua conta de vendedor e começar a vender seus produtos.
+                <h2>Entre para desvendar oportunidades: vender, comprar e se encantar na nossa feira online! </h2>
+                <br />
+                <p> Seja bem-vindo! <br /> <br />
+                    Faça o login para acessar sua conta de vendedor ou de cliente e começar a vender ou negociar produtos.
                 </p>
                 <div className={style.imgbtn}>
                     <div className={style.imgdiv}>
                         <img src={imgform} alt="" srcset="" />
                     </div>
-                    <Link to="/loginvendedor" className={style.btn}>Login vendedor</Link>
                 </div>
 
             </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../../components/Header";
 import ProductCard from "../../components/Products";
-import Rodape from "../../components/footer";
+import Rodape from "../../components/Footer";
 import style from "./style.module.css";
 
 function Home() {

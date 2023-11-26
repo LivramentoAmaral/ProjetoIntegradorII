@@ -14,10 +14,10 @@
     align-items: center;
     flex-direction: column;
     gap: 20px;
-    
+
 }
 
-.Container>h1{
+.Container>h1 {
     width: 50%;
     display: flex;
     justify-content: center;
@@ -40,6 +40,24 @@
     gap: 20px;
 }
 
+.noProducts{
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* style.module.css */
+
+.noProductsMessage {
+    color:rgb(51, 51,51);
+    font-size: 40px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+
+
 .containerProducts {
     width: 45%;
     height: 100%;
@@ -48,7 +66,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
     padding: 10px;
     background-color: #fff;
     padding: 30px;
@@ -58,7 +75,6 @@
 }
 
 .cardProduct {
-
     width: 90%;
     height: 100%;
     display: flex;
@@ -68,7 +84,7 @@
 .cardProduct>img {
     width: 18.706rem;
     height: 18.706rem;
-    border-radius: 10px;
+    border-radius: 15px;
 
 }
 
@@ -80,50 +96,86 @@
     justify-content: center;
     align-items: flex-start;
     border-radius: 15px;
-    background: #F5F5F5;
+    background: white;
     padding: 15px;
-    gap: 30px;
+    gap: 20px;
 }
+
 
 .description>p {
     width: 90%;
     display: flex;
     justify-content: flex-start;
     color: #406126;
-    font-family: Nunito Sans;
+    font-family: sans-serif;
     font-size: 20px;
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
     line-height: normal;
     text-transform: capitalize;
 
 
 }
+
+.description>h2 {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: rgb(51, 51, 51);
+    font-family: sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 800;
+    text-decoration:bold;
+    line-height: normal;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.description .descricaoText {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    color: rgb(51, 51, 51);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    
+}
+
 
 .description>button {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 5vh;
-    padding: 5px;
-    border-radius: 15px;
-    background: #7FA462;
+    height:17%;
+    padding: 10px;
+    border-radius: 50px;
+    background: #F2F2F2;
     border: none;
-    color: white;    
+    color: rgb(51, 51, 51);
+    font-family: sans-serif;
     cursor: pointer;
+    
+    font-size: 17px;
 }
 
+.description>button>svg {
+
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    fill: rgb(51, 51, 51);
+}
+
+
+
 .description>button:hover {
-    background: #406126;
+    background: #bebebe;
 }
-.description>button>span{
-    font-size: 15px;
-    font-weight: bold;
-    line-height: normal;
-    text-transform: capitalize;
-    width: 10%;
-}
+
 
 
 .descriptionFarm {
@@ -131,12 +183,12 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    justify-content:center ;
+    justify-content: center;
     flex-direction: column;
     gap: 10px;
 }
 
-.farm{
+.farm {
 
     width: 100%;
     display: flex;
@@ -149,26 +201,38 @@
     font-size: 13px;
     padding: 10px;
 }
+
 .greenLoading {
-    background-color: white; /* Define a cor verde para o círculo de carregamento */
-    border: 4px solid #f3f3f3; /* Cria o círculo com uma borda cinza */
-    border-top: 4px solid #34db74; /* Adiciona a cor de animação no topo */
-    border-radius: 50%; /* Torna o elemento circular */
-    width: 100px; /* Define a largura do círculo */
-    height: 100px; /* Define a altura do círculo */
-    animation: spin 2s linear infinite; /* Aplica a animação de rotação */
-  }
-  
-.loadingContainer{
+    background-color: white;
+    /* Define a cor verde para o círculo de carregamento */
+    border: 4px solid #f3f3f3;
+    /* Cria o círculo com uma borda cinza */
+    border-top: 4px solid #34db74;
+    /* Adiciona a cor de animação no topo */
+    border-radius: 50%;
+    /* Torna o elemento circular */
+    width: 100px;
+    /* Define a largura do círculo */
+    height: 100px;
+    /* Define a altura do círculo */
+    animation: spin 2s linear infinite;
+    /* Aplica a animação de rotação */
+}
+
+.loadingContainer {
     width: 100%;
     height: 90vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
 
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

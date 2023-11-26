@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/Header";
-import Rodape from "../../components/footer";
+import Rodape from "../../components/Footer";
 import styles from "./style.module.css"; 
 import ProdutorImage from "../../assets/peodutorVendendo.jpeg"
 import ProdutosImage from "../../assets/produtosdafeira.jpeg"

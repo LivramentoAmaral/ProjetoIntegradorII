@@ -3,7 +3,7 @@ import api from "../../api";
 import HeaderVendedor from "../../components/HeaderVendedor";
 import ProductEditModal from "../../components/ProductEditModal";
 import ProductItem from "../../components/ProductIntem";
-import Rodape from "../../components/footer";
+import Rodape from "../../components/Footer";
 import style from "./style.module.css";
 import ProductAddModal from "../../components/ProductModal";
 import swal from "sweetalert";

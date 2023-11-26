@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/Header";
-import Rodape from "../../components/footer";
+import Rodape from "../../components/Footer";
 import style from "./style.module.css";
 import FormCadastroVendedor from "../../components/FormCadastroVendedor";
 import FormCadastroCliente from "../../components/FormCadastroCliente";

@@ -1,6 +1,6 @@
-import FormLoginCliente from "../../components/FormLoginCliente";
+import FormLoginCliente from "../../components/FormLogin";
 import Header from "../../components/Header";
-import Rodape from "../../components/footer";
+import Rodape from "../../components/Footer";
 import React from "react";
 
 
