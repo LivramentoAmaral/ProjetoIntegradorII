@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import LoginCliente from "../pages/Login";
 import ProductsVendedor from "../pages/ProductsVendedor";
 import Sobre from "../pages/Sobre";
+import Recuperar from "../pages/Recuperar";
 
 
 
@@ -19,7 +20,7 @@ function Routers() {
         <Route  path="/cadastro" element={<Cadastro/>} />
         <Route  path="/meusproducts" element={<ProductsVendedor/>} />
         <Route  path="/sobre" element={<Sobre/>} />
-        <Route  path="/recuperarsenha" element={<h1> </h1>} />
+        <Route  path="/recuperarsenha" element={<Recuperar/>} />
 
       </Routes>
     </BrowserRouter>
