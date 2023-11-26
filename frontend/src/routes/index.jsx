@@ -6,10 +6,12 @@ import LoginCliente from "../pages/LoginCliente";
 import LoginVendedor from "../pages/LoginVendedor";
 import Cadastro from "../pages/Cadastro";
 import ProductsVendedor from "../pages/ProductsVendedor";
+import Sobre from "../pages/Sobre";
 
 
 
 function Routers() {
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -18,6 +20,7 @@ function Routers() {
         <Route  path="/loginvendedor" element={<LoginVendedor/>} />
         <Route  path="/cadastro" element={<Cadastro/>} />
         <Route  path="/meusproducts" element={<ProductsVendedor/>} />
+        <Route  path="/sobre" element={<Sobre/>} />
 
       </Routes>
     </BrowserRouter>

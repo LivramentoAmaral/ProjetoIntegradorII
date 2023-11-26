@@ -5,6 +5,7 @@ const ProductController = require("../controller/ProductController");
 const CartController = require("../controller/CartController");
 const UserClienteController = require("../controller/UserClienteController");
 const routes = Router();
+const upload = require('../utils/upload_imagem')
 
 
 routes.get('/', (req, res) => {
@@ -23,7 +24,7 @@ routes.get("/usersclient/:user_id",UserClienteController.getUserById)
 routes.post("/session",SessionController.createSession)
 
 routes.get("/products",ProductController.getProducts)
-routes.post("/products/:user_id",ProductController.createProduct)
+routes.post("/products/:user_id", upload.single('productImage'), ProductController.createProduct)
 routes.get("/:user_id/products",ProductController.getUserProducts)
 routes.get("/products/:product_id",ProductController.getProductById)
 routes.patch("/products/:user_id/:product_id",ProductController.updateProduct)

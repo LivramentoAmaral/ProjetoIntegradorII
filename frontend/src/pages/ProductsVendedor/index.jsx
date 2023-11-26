@@ -6,9 +6,11 @@ import ProductItem from "../../components/ProductIntem";
 import Rodape from "../../components/footer";
 import style from "./style.module.css";
 import ProductAddModal from "../../components/ProductModal";
+import swal from "sweetalert";
 
 const ProductsVendedor = () => {
     const [products, setProducts] = useState([]);
+    const [userData, setUserData] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -17,6 +19,7 @@ const ProductsVendedor = () => {
 
     useEffect(() => {
         fetchUserProducts();
+        fetchUserData();
     }, []);
 
     const fetchUserProducts = async () => {
@@ -25,6 +28,15 @@ const ProductsVendedor = () => {
             setProducts(response.data);
         } catch (error) {
             console.error("Error fetching user products:", error);
+        }
+    };
+
+    const fetchUserData = async () => {
+        try {
+            const userResponse = await api.get(`/users/${user_id}`);
+            setUserData(userResponse.data); // Assuming the user data contains a property like 'name'
+        } catch (error) {
+            console.error("Error fetching user data:", error);
         }
     };
 
@@ -53,14 +65,41 @@ const ProductsVendedor = () => {
 
     const handleDeleteProduct = async (productId) => {
         try {
-            await api.delete(`/products/${user_id}/${productId}`);
-            setProducts((prevProducts) =>
-                prevProducts.filter((product) => product._id !== productId)
-            );
+            // Consultar a API para obter os detalhes do produto com base no ID
+            const productDetails = await api.get(`/products/${productId}`);
+            const productName = productDetails.data.productName;
+
+            // Exibir o SweetAlert para confirmar a exclusão
+            const willDelete = await swal({
+                title: "Deseja Excluir?",
+                text: ` Vai excluir o produto ${productName}!`,
+                icon: "warning",
+                buttons: ["Cancelar", "Deletar"],
+                dangerMode: true,
+            });
+
+            if (willDelete) {
+                // Se o usuário confirmar a exclusão, chamar a API para deletar o produto
+                await api.delete(`/products/${user_id}/${productId}`);
+                // Atualizar a lista de produtos após a exclusão bem-sucedida
+                setProducts((prevProducts) =>
+                    prevProducts.filter((product) => product._id !== productId)
+                );
+
+                // Exibir um SweetAlert para indicar que o produto foi excluído com sucesso
+                swal(`O Produto ${productName} Deletado Com Sucesso!`, {
+                    icon: "success",
+                });
+            } else {
+                // Se o usuário cancelar a exclusão, exibir um SweetAlert indicando que o produto está seguro
+                swal("Produto não foi deletado!");
+            }
         } catch (error) {
             console.error("Error deleting product:", error);
+            // Trate os erros adequadamente aqui
         }
     };
+
 
     const handleOpenAddModal = () => {
         setIsAddModalOpen(true);
@@ -69,14 +108,14 @@ const ProductsVendedor = () => {
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     };
-    
+
 
     const filteredProducts = searchTerm
         ? products.filter((product) =>
-              product.productName.toLowerCase().includes(searchTerm.toLowerCase())
-          )
+            product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+        )
         : products;
-    
+
 
     return (
         <>
@@ -106,7 +145,7 @@ const ProductsVendedor = () => {
                         </svg>
                     </button>
                     <div className={style.Farm}>
-                        <h3>Nome da Fazenda</h3>
+                        <h3>{userData ? `${userData.username}` : 'Nome da Fazenda'}</h3>
                     </div>
                 </div>
 

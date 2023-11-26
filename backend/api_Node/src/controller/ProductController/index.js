@@ -6,11 +6,14 @@ const ProductController = {
     async createProduct(req, res) {
 
         const bodyData = req.body;
+        console.log(bodyData)
+        console.log(req.file)
+        const url_img = 'http://localhost:8000/uploads/' + req.file.filename;
         const { user_id } = req.params;
 
         try {
 
-            const newProduct = await Product.create({ username: user_id, ...bodyData });
+            const newProduct = await Product.create({ username: user_id, productImage:url_img, ...bodyData });
             await newProduct.populate("username");
 
             return res.status(201).json(newProduct);
@@ -18,8 +21,6 @@ const ProductController = {
         } catch (error) {
             return res.status(400).json(error);
         }
-
-
     },
 
     async getUserProducts(req, res) {

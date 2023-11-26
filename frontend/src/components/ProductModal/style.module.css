@@ -11,6 +11,7 @@
     padding: 20px;
     background: rgba(0, 0, 0, 0.57);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.24);
+    gap: 10px;
 
 }
 
@@ -44,7 +45,7 @@
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 .Modal form div label {
@@ -64,6 +65,51 @@
     background: #E3E3E3;
 }
 
+.Modal input[type="file"] {
+    margin-bottom: 10px;
+    height: 15vh;
+}
+
+.Modal input[type="file"]::-webkit-file-upload-button {
+    background: #b0b0b0;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 10px; 
+    width: 100%;
+
+}
+
+
+
+.Modal input[type="file"]::-webkit-file-upload-button:hover {
+    opacity: 0.8;
+}
+
+.Modal .imageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Modal .imageContainer label {
+    margin-bottom: 5px;
+}
+
+.Modal .imageContainer img {
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
 .Modal textarea {
     width: 100%;
     height: 10vh;
@@ -71,22 +117,49 @@
     border: 1px solid #ccc;
     margin-bottom: 10px;
     background: #E3E3E3;
+    padding: 8px;
 }
 
+.Modal img {
+    max-width: 100%;
+    /* A imagem terá no máximo 100% da largura do contêiner */
+    height: auto;
+    /* A altura se ajustará automaticamente para manter a proporção */
+    border-radius: 10px;
+    /* Adicionando borda arredondada opcional */
+    margin-bottom: 10px;
+    /* Espaçamento inferior para a imagem */
+}
+
+
+
 .Modal button {
-    padding: 8px 16px;
+    border-radius: 20px;
+    background: #558F39;
     border: none;
-    border-radius: 4px;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
     cursor: pointer;
     margin-top: 10px;
-    background-color: #007bff;
-    color: white;
+    width: 100%;
 }
 
 .Modal button:nth-child(1) {
     background-color: #28a745;
     margin-right: 10px;
 }
+
+.Modal button:nth-child(2) {
+    background-color: rgb(90, 90, 90);
+    cursor: pointer;
+}
+
+.Modal button:nth-child(3) {
+    background-color: rgb(90, 90, 90);
+    cursor: pointer;
+}
+
 
 .Modal button:hover {
     opacity: 0.8;

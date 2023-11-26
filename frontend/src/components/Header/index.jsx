@@ -15,7 +15,7 @@ export default function Header() {
                 <div className={style.menu}>
                     <ul>
                         <li><Link to="/">Home</Link></li>
-                        <li><Link to="#">Sobre</Link></li>
+                        <li><Link to="/sobre">Sobre</Link></li>
                         <li><Link to="/logincliente">Login</Link></li>
                         <li><Link to="/cadastro">Cadastrar</Link></li>
                         <li><Link to="#">

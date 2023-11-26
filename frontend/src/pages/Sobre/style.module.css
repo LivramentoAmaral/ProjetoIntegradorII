@@ -1,0 +1,79 @@
+/* Estilos para a página "Sobre" */
+/* style.module.css */
+
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .aboutPage {
+    padding: 40px 20px;
+  }
+  
+  .aboutSection {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 40px;
+  }
+  
+  .text {
+    max-width: 600px;
+  }
+  
+  .image {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .image img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  p {
+    font-size: 20px;
+    line-height: 1.8;
+    color: #555;
+  }
+  
+  /* Estilização para realce dos elementos */
+  .aboutPage {
+    background-color: #f9f9f9;
+  }
+  
+  .aboutSection {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text {
+    border-right: 2px solid #ddd;
+    padding-right: 30px;
+  }
+  
+  .image {
+    border-top: 2px solid #ddd;
+    padding-top: 30px;
+    margin-top: 20px;
+  }
+  

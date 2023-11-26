@@ -24,11 +24,9 @@ const ImageUploadModal = ({ isOpen, onClose, onSubmit }) => {
               <input type="file" accept="image/*" onChange={handleImageChange} />
             </label>
             <button type="button" onClick={handleSubmit}>
-              Enviar
+              salvar
             </button>
-            <button type="button" onClick={onClose}>
-              Fechar
-            </button>
+            
           </form>
         </div>
       </div>
