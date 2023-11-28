@@ -7,6 +7,7 @@ import LoginCliente from "../pages/Login";
 import ProductsVendedor from "../pages/ProductsVendedor";
 import Sobre from "../pages/Sobre";
 import Recuperar from "../pages/Recuperar";
+import NovaSenha from "../pages/NovaSenha";
 
 
 
@@ -21,6 +22,7 @@ function Routers() {
         <Route  path="/meusproducts" element={<ProductsVendedor/>} />
         <Route  path="/sobre" element={<Sobre/>} />
         <Route  path="/recuperarsenha" element={<Recuperar/>} />
+        <Route path="/novasenha" element={<NovaSenha/>} />
 
       </Routes>
     </BrowserRouter>

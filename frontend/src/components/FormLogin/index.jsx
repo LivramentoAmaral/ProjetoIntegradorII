@@ -9,12 +9,40 @@ function FormLoginCliente() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = {
+            email,
+            senha,
+        };
+
+        fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            console.log(data);
+            
+
+        }).catch((error) => {
+            console.log(error);
+        }
+        )
+    }
+          
+
     return (
 
         <div className={style.container}>
 
 
-            <form className={style.form}>
+            <form className={style.form} >
 
                 <div className={style.formLeft}>
                     <label htmlFor="">Login</label>

@@ -15,7 +15,8 @@ const ProductsVendedor = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const user_id = "6553d013319e3e8290206705";
+    const user_id = "65651865198030b2e881aa2f";
+    const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTE5MDc5OCwiZXhwIjoxNzAxMTkyNTk4fQ.qy0aFPi43nNxdyqM-imCuFE2Spx9EGiL6UMvC8wXcbQ'
 
     useEffect(() => {
         fetchUserProducts();
@@ -46,22 +47,11 @@ const ProductsVendedor = () => {
     };
 
     const handleUpdateProduct = async (updatedProduct) => {
-        try {
-            const response = await api.patch(
-                `/products/${updatedProduct.username}/${updatedProduct._id}`,
-                updatedProduct
-            );
-            setProducts((prevProducts) =>
-                prevProducts.map((product) =>
-                    product._id === updatedProduct._id ? response.data : product
-                )
-            );
-        } catch (error) {
-            console.error("Error updating product:", error);
-        }
-        setIsModalOpen(false);
-        setSelectedProduct(null);
-    };
+        const handleEditProduct = (product) => {
+            setSelectedProduct(product);
+            setIsModalOpen(true);
+        };
+    }
 
     const handleDeleteProduct = async (productId) => {
         try {
@@ -115,13 +105,26 @@ const ProductsVendedor = () => {
             product.productName.toLowerCase().includes(searchTerm.toLowerCase())
         )
         : products;
+    const lessThanFourProductsStyle = {
+        padding: "20px",
+        height: "60vh",
+    };
+
+    const moreThanFourProductsStyle = {
+        height: "100%",
+    };
 
 
     return (
         <>
             <HeaderVendedor />
             <br />
-            <main className={style.mainProdutor}>
+            <main className={style.mainProdutor}
+                style={
+                    filteredProducts.length < 4
+                        ? lessThanFourProductsStyle
+                        : moreThanFourProductsStyle
+                }>
                 <div className={style.menuVendedor}>
                     <div className={style.search}>
                         <div>
@@ -193,8 +196,15 @@ const ProductsVendedor = () => {
                     setIsModalOpen(false);
                     setSelectedProduct(null);
                 }}
-                onUpdate={handleUpdateProduct}
+                onUpdate={(updatedProduct) => {
+                    const updatedProducts = products.map((product) =>
+                        product._id === updatedProduct._id ? updatedProduct : product
+                    );
+                    setProducts(updatedProducts);
+                }}
                 product={selectedProduct}
+                user_id={user_id}
+                setProducts={setProducts}
             />
         </>
     );

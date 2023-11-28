@@ -6,6 +6,7 @@ const CartController = require("../controller/CartController");
 const UserClienteController = require("../controller/UserClienteController");
 const routes = Router();
 const upload = require('../utils/upload_imagem')
+const validateToken = require("../middlewares/index")
 
 
 routes.get('/', (req, res) => {
@@ -24,10 +25,10 @@ routes.get("/usersclient/:user_id",UserClienteController.getUserById)
 routes.post("/session",SessionController.createSession)
 
 routes.get("/products",ProductController.getProducts)
-routes.post("/products/:user_id", upload.single('productImage'), ProductController.createProduct)
+routes.post("/products/:user_id",validateToken,upload.single('productImage'), ProductController.createProduct)
 routes.get("/:user_id/products",ProductController.getUserProducts)
 routes.get("/products/:product_id",ProductController.getProductById)
-routes.patch("/products/:user_id/:product_id",ProductController.updateProduct)
+routes.patch("/products/:user_id/:product_id",validateToken,upload.single('productImage'),ProductController.updateProduct)
 routes.delete("/products/:user_id/:product_id",ProductController.deleteProduct)
 
 

@@ -13,7 +13,7 @@ const ProductController = {
 
         try {
 
-            const newProduct = await Product.create({ username: user_id, productImage:url_img, ...bodyData });
+            const newProduct = await Product.create({ username: user_id, productImage: url_img, ...bodyData });
             await newProduct.populate("username");
 
             return res.status(201).json(newProduct);
@@ -38,26 +38,30 @@ const ProductController = {
     },
 
     async updateProduct(req, res) {
-
-        const bodyData = req.body
-        const {user_id, product_id} = req.params
+        const bodyData = req.body;
+        const { user_id, product_id } = req.params;
 
         try {
+            let updatedProduct;
+            if (req.file) {
+                const url_img = 'http://localhost:8000/uploads/' + req.file.filename;
+                const updatedData = { ...bodyData, productImage: url_img };
+                updatedProduct = await Product.findByIdAndUpdate(product_id, updatedData, { new: true });
+            } else {
+                updatedProduct = await Product.findByIdAndUpdate(product_id, bodyData, { new: true });
+            }
 
-          const updatedProduct = await Product.findByIdAndUpdate(product_id,bodyData,{new:true})
-          return res.status(200).json(updatedProduct)
-
+            return res.status(200).json(updatedProduct);
         } catch (error) {
             return res.status(400).json(error);
         }
-
     },
 
     async deleteProduct(req, res) {
 
         const bodyData = req.body
-        const {user_id, product_id} = req.params
-        
+        const { user_id, product_id } = req.params
+
         try {
 
             const deletedProduct = await Product.findByIdAndDelete(product_id)
@@ -74,7 +78,7 @@ const ProductController = {
             const productsAll = await Product.find();
             const productsWithUsers = await Promise.all(productsAll.map(async (product) => {
                 const user = await User.findById(product.username);
-    
+
                 // Verifica se o usuário foi encontrado
                 if (user) {
                     // Adiciona os detalhes do usuário ao produto
@@ -99,7 +103,7 @@ const ProductController = {
             return res.status(400).json(error);
         }
     }
-    
+
     ,
 
     async getProductById(req, res) {
@@ -107,9 +111,9 @@ const ProductController = {
         const { product_id } = req.params
 
         try {
-                
-                const productById = await Product.findById(product_id);
-                return res.status(200).json(productById);
+
+            const productById = await Product.findById(product_id);
+            return res.status(200).json(productById);
 
         } catch (error) {
             return res.status(400).json(error);

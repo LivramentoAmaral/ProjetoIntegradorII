@@ -1,24 +1,39 @@
+const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
+const UserCliente = require('../../models/UserCliente');
+const bcrypt = require('bcryptjs');
 
 const SessionController = {
-    
+
     async createSession(req, res) {
-        const { username, password } = req.body;
-
-        try {
-            const user = await User.findOne({ username, password });
-            const usercliente = await UserCliente.findOne({ username, password});
-
-            if (user || usercliente) {  
-                // Usuário encontrado, retornar os dados do usuário
-                return res.status(201).json(user);
-            } else {
-                // Usuário não encontrado, retornar uma resposta apropriada (por exemplo, status 404)
-                return res.status(404).json({ message: 'Usuário não encontrado' });
+        const { email, password } = req.body;
+       
+            const user = await UserCliente.findOne({ email });
+            const usercliente = await User.findOne({ email });
+            // Usuário encontrado, retornar os dados do usuário
+            if (user) {
+                if (await bcrypt.compare(password, user.password)) {
+                    const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+                        expiresIn: "30s",
+                    });
+                    return res.status(200).json({ accessToken });
+                } else {
+                    return res.status(401).json({ error: "Senha incorreta" });
+                }
+            }else if(usercliente){
+                if (await bcrypt.compare(password, usercliente.password)) {
+                    const accessToken = jwt.sign({ id: usercliente.id }, process.env.JWT_SECRET, {
+                        expiresIn: "30m",
+                    });
+                    return res.status(200).json({ accessToken });
+                } else {
+                    return res.status(401).json({ error: "Senha incorreta" });
+                }
+            }else{
+                return res.status(401).json({ error: "Usuário não encontrado" });
             }
-        } catch (error) {
-            return res.status(500).json({ message: 'Erro interno do servidor' });
-        }
+            // return res.status(201).json(usercliente||user);
+        
     }
 };
 

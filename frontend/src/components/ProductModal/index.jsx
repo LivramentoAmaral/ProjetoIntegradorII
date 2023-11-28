@@ -6,8 +6,8 @@ const ProductAddModal = ({ isOpen, user_id, onClose, setProducts }) => {
   const [newProduct, setNewProduct] = useState({
     productName: "",
     productDescription: "",
-    productPrice: 0,
-    productQuantity: 0,
+    productPrice: "",
+    
   });
 
   const [imagem, setImagem] = useState(null);
@@ -31,6 +31,7 @@ const ProductAddModal = ({ isOpen, user_id, onClose, setProducts }) => {
       const response = await api.post(`/products/${user_id}`, form, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTE5MDc5OCwiZXhwIjoxNzAxMTkyNTk4fQ.qy0aFPi43nNxdyqM-imCuFE2Spx9EGiL6UMvC8wXcbQ'
         },
       });
 
@@ -41,8 +42,8 @@ const ProductAddModal = ({ isOpen, user_id, onClose, setProducts }) => {
         setNewProduct({
           productName: "",
           productDescription: "",
-          productPrice: 0,
-          productQuantity: 0,
+          productPrice: "",
+         
         });
         setImagem(null);
         setImagePreview("");
@@ -123,7 +124,7 @@ const ProductAddModal = ({ isOpen, user_id, onClose, setProducts }) => {
               <div>
                 <label htmlFor="productPrice">Preço</label>
                 <input
-                  type="number"
+                  type="text"
                   id="productPrice"
                   name="productPrice"
                   value={newProduct.productPrice}
@@ -131,17 +132,7 @@ const ProductAddModal = ({ isOpen, user_id, onClose, setProducts }) => {
                   required
                 />
               </div>
-              <div>
-                <label htmlFor="productQuantity">Quantidade</label>
-                <input
-                  type="number"
-                  id="productQuantity"
-                  name="productQuantity"
-                  value={newProduct.productQuantity}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
+              
               <div className={style.buttons}>
                 <button type="button" onClick={handleNext}>
                   Próximo
