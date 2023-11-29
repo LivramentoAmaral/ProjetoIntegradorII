@@ -12,17 +12,17 @@ import NovaSenha from "../pages/NovaSenha";
 
 
 function Routers() {
-  
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route  path="/" index element={<Home/>} />
-        <Route  path="/login" element={<LoginCliente/>} />
-        <Route  path="/cadastro" element={<Cadastro/>} />
-        <Route  path="/meusproducts" element={<ProductsVendedor/>} />
-        <Route  path="/sobre" element={<Sobre/>} />
-        <Route  path="/recuperarsenha" element={<Recuperar/>} />
-        <Route path="/novasenha" element={<NovaSenha/>} />
+        <Route path="/" index element={<Home />} />
+        <Route path="/login" element={<LoginCliente />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/meusproducts" element={<ProductsVendedor />} />
+        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/recuperarsenha" element={<Recuperar />} />
+        <Route path="/novasenha" element={<NovaSenha />} />
 
       </Routes>
     </BrowserRouter>

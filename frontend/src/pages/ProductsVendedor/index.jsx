@@ -16,7 +16,7 @@ const ProductsVendedor = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const user_id = "65651865198030b2e881aa2f";
-    const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTE5MDc5OCwiZXhwIjoxNzAxMTkyNTk4fQ.qy0aFPi43nNxdyqM-imCuFE2Spx9EGiL6UMvC8wXcbQ'
+    const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTIyMDg4MywiZXhwIjoxNzAxMzA3MjgzfQ.B2vjSCrml3V_VmTxVVSOFm5sonPad7SqT4tmvPanSuA'
 
     useEffect(() => {
         fetchUserProducts();
@@ -167,6 +167,7 @@ const ProductsVendedor = () => {
                                         product={product}
                                         onEdit={handleEditProduct}
                                         onDelete={handleDeleteProduct}
+        
                                     />
                                 ))}
                             </tbody>
@@ -196,13 +197,8 @@ const ProductsVendedor = () => {
                     setIsModalOpen(false);
                     setSelectedProduct(null);
                 }}
-                onUpdate={(updatedProduct) => {
-                    const updatedProducts = products.map((product) =>
-                        product._id === updatedProduct._id ? updatedProduct : product
-                    );
-                    setProducts(updatedProducts);
-                }}
-                product={selectedProduct}
+                Authorization={Authorization}
+                product={selectedProduct}               
                 user_id={user_id}
                 setProducts={setProducts}
             />

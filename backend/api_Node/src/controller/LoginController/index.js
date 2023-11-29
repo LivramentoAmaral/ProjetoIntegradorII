@@ -14,7 +14,7 @@ const SessionController = {
             if (user) {
                 if (await bcrypt.compare(password, user.password)) {
                     const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-                        expiresIn: "30s",
+                        expiresIn: "1d",
                     });
                     return res.status(200).json({ accessToken });
                 } else {
@@ -23,7 +23,7 @@ const SessionController = {
             }else if(usercliente){
                 if (await bcrypt.compare(password, usercliente.password)) {
                     const accessToken = jwt.sign({ id: usercliente.id }, process.env.JWT_SECRET, {
-                        expiresIn: "30m",
+                        expiresIn: "1d",
                     });
                     return res.status(200).json({ accessToken });
                 } else {

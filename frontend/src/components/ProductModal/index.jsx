@@ -31,7 +31,7 @@ const ProductAddModal = ({ isOpen, user_id, onClose, setProducts }) => {
       const response = await api.post(`/products/${user_id}`, form, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTE5MDc5OCwiZXhwIjoxNzAxMTkyNTk4fQ.qy0aFPi43nNxdyqM-imCuFE2Spx9EGiL6UMvC8wXcbQ'
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTIxNDg1OSwiZXhwIjoxNzAxMzAxMjU5fQ.Sl6YvwZTEU72cDVolRgRXg2yKkVMUtVcIS692RnX_So'
         },
       });
 
@@ -160,7 +160,7 @@ const ProductAddModal = ({ isOpen, user_id, onClose, setProducts }) => {
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    style={{ maxWidth: "400px" }}
+                    style={{ width: "100%",height: "300px" }}
                   />
                 )}
               </div>
