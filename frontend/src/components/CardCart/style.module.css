@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.card{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 10px;
+    border-top: 2px  solid  #B1B1B1;;
+}
+
+.img{
+    width: 50%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img img{
+    width: 30%;
+    height: 30%;
+}
+
+
+.nomePrice{
+    width: 30%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #000;
+}
+
+.nomePrice p{
+    font-size: 20px;
+}       
+
+.Resumopedido{
+    width: 50%;
+    height: 100%;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: 700;
+    padding: 20px;
+    color: #000;
+}
+
+.Resumopedido p{
+    font-size: 20px;
+}
+
+.valortototal{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    border-top:1px solid #B1B1B1 ;
+    align-items: center;
+    justify-content: space-around;
+    font-weight: 700;
+    padding: 20px;
+    
+}
+
+.valortototal p:nth-child(2){
+    font-size: 20px;
+    color: #529641;
+}
+
+.btn{
+    border-top:1px solid #B1B1B1 ;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.excluir{
+    width: 28%;
+    height: 100%;
+    background-color: transparent;
+    color:#9b0d0d ;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.btnwhatzapp{
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border:1px solid #529641;
+    height: 100%;
+    padding: 10px;
+    background-color: transparent;
+    color:#529641 ;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+
+
+

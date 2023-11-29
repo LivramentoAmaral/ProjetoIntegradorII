@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import api from "../../api";
 import HeaderVendedor from "../../components/HeaderVendedor";
 import ProductEditModal from "../../components/ProductEditModal";
@@ -7,6 +7,8 @@ import Rodape from "../../components/Footer";
 import style from "./style.module.css";
 import ProductAddModal from "../../components/ProductModal";
 import swal from "sweetalert";
+import AuthContext from "../../context/AuthContext";
+
 
 const ProductsVendedor = () => {
     const [products, setProducts] = useState([]);
@@ -16,7 +18,8 @@ const ProductsVendedor = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const user_id = "65651865198030b2e881aa2f";
-    const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTIyMDg4MywiZXhwIjoxNzAxMzA3MjgzfQ.B2vjSCrml3V_VmTxVVSOFm5sonPad7SqT4tmvPanSuA'
+    const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTI3NDEzNCwiZXhwIjoxNzAxMzYwNTM0fQ.4YGzCYPia_5ESAzPD1kfgb4eGJn73KsDZi717XJUBHA'
+    let {user,logout} = useContext(AuthContext);
 
     useEffect(() => {
         fetchUserProducts();
@@ -25,12 +28,17 @@ const ProductsVendedor = () => {
 
     const fetchUserProducts = async () => {
         try {
-            const response = await api.get(`/${user_id}/products`);
+            const response = await api.get(`/${user_id}/products`, {
+                headers: {
+                    "Authorization": `${Authorization}`,
+                },
+            });
             setProducts(response.data);
         } catch (error) {
             console.error("Error fetching user products:", error);
         }
     };
+    
 
     const fetchUserData = async () => {
         try {
@@ -56,7 +64,12 @@ const ProductsVendedor = () => {
     const handleDeleteProduct = async (productId) => {
         try {
             // Consultar a API para obter os detalhes do produto com base no ID
-            const productDetails = await api.get(`/products/${productId}`);
+            const productDetails = await api.get(`/products/${productId}`
+            ,{
+                headers: {
+                    "Authorization": `${Authorization}`,
+                },
+            });
             const productName = productDetails.data.productName;
 
             // Exibir o SweetAlert para confirmar a exclusão
@@ -70,7 +83,11 @@ const ProductsVendedor = () => {
 
             if (willDelete) {
                 // Se o usuário confirmar a exclusão, chamar a API para deletar o produto
-                await api.delete(`/products/${user_id}/${productId}`);
+                await api.delete(`/products/${user_id}/${productId}`, {
+                    headers: {
+                        "Authorization": `${Authorization}`,
+                    },
+                });
                 // Atualizar a lista de produtos após a exclusão bem-sucedida
                 setProducts((prevProducts) =>
                     prevProducts.filter((product) => product._id !== productId)

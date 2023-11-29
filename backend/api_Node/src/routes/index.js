@@ -26,10 +26,10 @@ routes.post("/session",SessionController.createSession)
 
 routes.get("/products",ProductController.getProducts)
 routes.post("/products/:user_id",validateToken,upload.single('productImage'), ProductController.createProduct)
-routes.get("/:user_id/products",ProductController.getUserProducts)
-routes.get("/products/:product_id",ProductController.getProductById)
+routes.get("/:user_id/products",validateToken,ProductController.getUserProducts)
+routes.get("/products/:product_id",validateToken,ProductController.getProductById)
 routes.patch("/products/:user_id/:product_id",validateToken,upload.single('productImage'),ProductController.updateProduct)
-routes.delete("/products/:user_id/:product_id",ProductController.deleteProduct)
+routes.delete("/products/:user_id/:product_id",validateToken,ProductController.deleteProduct)
 
 
 routes.post("/cart/:user_id",CartController.createCart)
