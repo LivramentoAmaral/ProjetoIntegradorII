@@ -20,6 +20,16 @@ function Cart() {
             });
     }, []);
 
+    // Função para atualizar a lista de produtos no carrinho após a exclusão
+    function handleDeleteProduct(productId) {
+        setCartItems(prevCartItems =>
+            prevCartItems.map(cartItem => ({
+                ...cartItem,
+                products: cartItem.products.filter(product => product._id !== productId)
+            }))
+        );
+    }
+
     return (
         <>
             <Header />
@@ -35,6 +45,7 @@ function Cart() {
                                 key={product._id}
                                 product={product}
                                 user={cartItem.username.username}
+                                onDeleteProduct={handleDeleteProduct}
                             />
                         ))}
                     </div>

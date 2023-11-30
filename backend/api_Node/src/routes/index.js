@@ -35,6 +35,7 @@ routes.delete("/products/:user_id/:product_id",validateToken,ProductController.d
 routes.post("/cart/:user_id",CartController.createCart)
 routes.get("/cart/:user_id",CartController.getUserCart)
 routes.get("/cart/:user_id/:cart_id",CartController.getCart)
-
+routes.delete('/cart/products/:user_id/:cart_id/', CartController.deleteProductFromCart);
+routes.post('/cart/:cart_id/:user_id', CartController.addProductToCart);
 
 module.exports = routes;
