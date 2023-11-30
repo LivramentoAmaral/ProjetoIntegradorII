@@ -83,12 +83,13 @@
 
 .btn{
     border-top:1px solid #B1B1B1 ;
-    width: 50%;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding: 10px;
+    
 }
 
 .excluir{
@@ -106,7 +107,7 @@
 }
 
 .btnwhatzapp{
-    width: 70%;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -117,6 +118,7 @@
     color:#529641 ;
     font-weight: 700;
     font-size: 20px;
+    text-decoration: none;
     cursor: pointer;
     border-radius: 10px;
 }

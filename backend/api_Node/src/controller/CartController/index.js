@@ -1,5 +1,5 @@
 const Cart = require('../../models/Cart');
-const { use } = require('../../routes');
+const User = require('../../models/User');
 
 const CartController = {
 
@@ -24,36 +24,41 @@ const CartController = {
     },
 
     async getUserCart(req, res) {
-
-        const {user_id} = req.params;
-
+        const { user_id } = req.params;
+    
         try {
-
-            const userCart = await Cart.find({username:user_id}).populate('products').populate("address");
+            const userCart = await Cart.find({ username: user_id }).populate({
+                path: 'products',
+                populate: {
+                    path: 'username', // Substitua 'createdBy' pelo campo correto que faz referência ao criador do produto
+                    model: User // Substitua 'User' pelo modelo correto do usuário
+                }
+            }).populate("username");
+    
             return res.status(200).json(userCart);
-
         } catch (error) {
             return res.status(400).json(error)
         }
-
     },
-
+    
     async getCart(req, res) {
-
-        const {user_id, cart_id} = req.params;
-
+        const { user_id, cart_id } = req.params;
+    
         try {
-
-            const cart = await Cart.findById(cart_id).populate('products');
+            const cart = await Cart.findById(cart_id).populate({
+                path: 'products',
+                populate: {
+                    path:'username', // Substitua 'createdBy' pelo campo correto que faz referência ao criador do produto
+                    model: User // Substitua 'User' pelo modelo correto do usuário
+                }
+            });
+    
             return res.status(200).json(cart);
-
         } catch (error) {
             return res.status(400).json(error)
         }
-
     }
-
-
+    
 }
 
 module.exports = CartController;
