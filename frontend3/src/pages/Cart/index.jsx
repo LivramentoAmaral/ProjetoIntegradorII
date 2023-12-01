@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/Header";
+import Header from "../../components/Header/index.jsx";
 import style from "./style.module.css";
-import Rodape from "../../components/Footer";
-import CardCart from "../../components/CardCart";
+import Rodape from "../../components/Footer/index.jsx";
+import CardCart from "../../components/CardCart/index.jsx";
 import api from "../../api/index.jsx";
 
 function Cart() {

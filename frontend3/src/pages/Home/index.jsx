@@ -3,6 +3,9 @@ import Header from "../../components/Header";
 import ProductCard from "../../components/Products";
 import Rodape from "../../components/Footer";
 import style from "./style.module.css";
+import Chat from "../../components/chat";
+import FlowiseChatbot from "../../components/chat";
+
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,6 +30,8 @@ function Home() {
           </button>
         </div>
       </div>
+
+      <FlowiseChatbot />
       <br />
       <ProductCard searchTerm={searchTerm} />
       <br />

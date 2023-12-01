@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());    
 app.use(routes);
 
-const port = process.env.PORT ; // Use a porta definida no arquivo .env ou 8000 como padrão
+const port = process.env.PORT  ; // Use a porta definida no arquivo .env ou 8000 como padrã]
 
 
 app.listen(port, () => {
