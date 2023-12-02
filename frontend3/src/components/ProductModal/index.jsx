@@ -31,7 +31,7 @@ const ProductAddModal = ({ isOpen, user_id, onClose, setProducts }) => {
       const response = await api.post(`/products/${user_id}`, form, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTIxNDg1OSwiZXhwIjoxNzAxMzAxMjU5fQ.Sl6YvwZTEU72cDVolRgRXg2yKkVMUtVcIS692RnX_So'
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTQ2NjI1MywiZXhwIjoxNzAxNTUyNjUzfQ.1ZSYmy-0OBNL4X6u2AR4OAdJrX-o0yaL-pbOO2cmF7M'
         },
       });
 

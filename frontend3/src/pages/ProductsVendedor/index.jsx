@@ -18,7 +18,7 @@ const ProductsVendedor = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const user_id = "65651865198030b2e881aa2f";
-    const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTI3NDEzNCwiZXhwIjoxNzAxMzYwNTM0fQ.4YGzCYPia_5ESAzPD1kfgb4eGJn73KsDZi717XJUBHA'
+    const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTQ2NjI1MywiZXhwIjoxNzAxNTUyNjUzfQ.1ZSYmy-0OBNL4X6u2AR4OAdJrX-o0yaL-pbOO2cmF7M'
     let {user,logout} = useContext(AuthContext);
 
     useEffect(() => {

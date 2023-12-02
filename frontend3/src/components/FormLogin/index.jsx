@@ -1,72 +1,66 @@
+import style from "./style.module.css"
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import * as jwt_decode from 'jwt-decode';
-import api from "../../api";
+import imgform from "../../assets/imglogin.png"
+import { Link } from "react-router-dom";
+
 
 function FormLoginCliente() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    const navigate = useNavigate();
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const data = {
-            email,
-            senha,
-        };
-
-        api.post("/session", data, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-        .then((response) => {
-            const { accessToken } = response.data;
-
-            if (accessToken) {
-                const decodedToken = jwt_decode(accessToken);
-
-                if (decodedToken && decodedToken.id) {
-                    // Aqui você pode verificar o tipo de usuário, por exemplo:
-                    // Supondo que o token tenha um campo userType
-                    const userType = decodedToken.userType;
-
-                    if (userType === "cliente") {
-                        navigate("/home"); // Redirecionar para a página do cliente
-                    } else if (userType === "vendedor") {
-                        navigate("/meusprodutos"); // Redirecionar para a página do vendedor
-                    } else {
-                        // Lógica para outros tipos de usuário, se aplicável
-                    }
-                }
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    };
-
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder="Senha"
-                    value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
-                />
-                <button type="submit">Login</button>
+
+        <div className={style.container}>
+
+
+            <form className={style.form}>
+
+                <div className={style.formLeft}>
+                    <label htmlFor="">Login</label>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Senha"
+                        value={senha}
+                        onChange={(e) => setSenha(e.target.value)}
+                    />
+
+                    <button type="submit">Login</button>
+
+                    <div className={style.cadastro}>
+                    <Link to="/recuperarsenha">Esqueceu sua senha? </Link>
+                     <p>ou</p>
+                    <Link to="/cadastro">Deseja-se Cadastrar</Link>
+                    </div>
+
+                </div>
             </form>
+
+            <div className={style.formRight}>
+                <h2>Entre para desvendar oportunidades: vender, comprar e se encantar na nossa feira online! </h2>
+                <br />
+                <p> Seja bem-vindo! <br /> <br />
+                    Faça o login para acessar sua conta de vendedor ou de cliente e começar a vender ou negociar produtos.
+                </p>
+                <div className={style.imgbtn}>
+                    <div className={style.imgdiv}>
+                        <img src={imgform} alt="" srcset="" />
+                    </div>
+                </div>
+
+            </div>
+
+
         </div>
-    );
+
+
+    )
 }
 
 export default FormLoginCliente;
