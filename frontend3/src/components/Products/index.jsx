@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { jwtDecode } from "jwt-decode";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from "../../api/index";
 import style from "./style.module.css";
 
@@ -8,8 +10,19 @@ function ProductCard({ searchTerm }) {
     const [error, setError] = useState(null);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [hasProducts, setHasProducts] = useState(true);
-    const  userId = "65651865198030b2e881aa2f";
-    const cartId = "656790aab5b5ea2d28b0cec1";
+    const navigate = useNavigate();
+    const [cartId, setCartId] = useState(null);
+
+
+    const getTokenPayload = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            return jwtDecode(token); // Decodifica o token JWT
+        }
+        return null;
+    };
+
+    const userId = getTokenPayload()?.id;
 
     useEffect(() => {
         const getAllProducts = async () => {
@@ -32,33 +45,10 @@ function ProductCard({ searchTerm }) {
         getAllProducts();
     }, []);
 
-    useEffect(() => {
-        // Lógica para buscar ou criar um carrinho para o usuário
-        // ...
 
-        // Supondo que você obtenha o cartId após a lógica acima
-        // setCartId(idDoCarrinho);
-    }, []);
 
-    const addToCart = async (productId) => {
-        try {
-            if (cartId) {
-                const response = await api.post(`/cart/${cartId}/${userId}`, { product_id: productId });
+    x
 
-                // faça Lógica para tratar a resposta da adição do produto ao carrinho?
-                if (response.status === 200) {
-                    console.log(response.data);  
-
-                }
-                // Por exemplo, exibir uma mensagem de sucesso ou atualizar o estado do carrinho na interface
-                // ...
-            } else {
-                console.log('Não há carrinho para adicionar o produto');
-            }
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
 
     useEffect(() => {
         if (searchTerm) {
@@ -98,6 +88,7 @@ function ProductCard({ searchTerm }) {
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24" viewBox="0 0 23 24" fill="none">
                                                     {/* ... SVG path */}
                                                 </svg> Adicionar ao carrinho
+
                                             </button>
                                         </div>
                                     </div>

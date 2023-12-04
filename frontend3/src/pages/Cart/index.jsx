@@ -4,12 +4,29 @@ import style from "./style.module.css";
 import Rodape from "../../components/Footer/index.jsx";
 import CardCart from "../../components/CardCart/index.jsx";
 import api from "../../api/index.jsx";
+import { jwtDecode } from "jwt-decode";
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
+    const getTokenPayload = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            return jwtDecode(token); // Decodifica o token JWT
+        }
+        return null;
+    };
+
+    const userId = getTokenPayload()?.id;
+    const cartId = localStorage.getItem('cartId');
+
+    console.log("card",cartId);
+    console.log("user",userId);
+
+    
+
 
     useEffect(() => {
-        const userId = "65651865198030b2e881aa2f"; // ID do usuário simulado
+        // ID do usuário simulado
 
         api.get(`/cart/${userId}`)
             .then(response => {
@@ -32,8 +49,10 @@ function Cart() {
 
     return (
         <>
-            <Header />
-            <main className={style.containerCart}>
+        <Header />
+        <main className={style.containerCart}>
+            {cartItems.length > 0 ? (
+                <>
                 <div className={style.text}>
                     <h2>Meu carrinho</h2>
                     <p>Resumo dos pedidos</p>
@@ -46,13 +65,24 @@ function Cart() {
                                 product={product}
                                 user={cartItem.username.username}
                                 onDeleteProduct={handleDeleteProduct}
+                                cartId={cartId}
+                                userId={userId}
                             />
                         ))}
                     </div>
                 ))}
-            </main>
-            <Rodape />
-        </>
+            </>
+            ) : (
+                
+            <div className={style.containerSemProducts}>
+                <p>Sem produtos no carrinho</p>
+            </div>
+
+                
+            )}
+        </main>
+        <Rodape />
+    </>
     );
 }
 

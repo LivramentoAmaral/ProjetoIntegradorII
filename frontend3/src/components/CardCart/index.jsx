@@ -2,8 +2,12 @@ import React from "react";
 import style from "./style.module.css";
 import api from "../../api/index";
 
-function CardCart({ product, user, onDeleteProduct }) {
-    const { productName, productDescription, productPrice, productImage, username } = product;
+
+function CardCart({ product, user, onDeleteProduct, userId, cartId }) {
+    const {productName, productDescription, productPrice, productImage, username } = product;
+
+    console.log("Resposta", product._id);
+
 
     const mensagem = `Olá ${product.username.username}!%0a%0aEspero que esteja tudo bem. Me deparei com o seu produto ${productName} e fiquei muito interessado! Gostaria bastante de adquiri-lo.%0a%0aVocê poderia me fornecer mais informações sobre disponibilidade, preço e formas de pagamento? Estou realmente ansioso para fazer essa aquisição o mais rápido possível.%0a%0aAgradeço desde já e aguardo sua resposta!%0a%0aAtenciosamente,%0a${user}`;
 
@@ -15,8 +19,7 @@ function CardCart({ product, user, onDeleteProduct }) {
     // função para excluir o produto do carrinho
     async function excluirItemCart() {
         try {
-            const userId = "65651865198030b2e881aa2f"; // ID do usuário simulado
-            const cartId = "656790aab5b5ea2d28b0cec1"; // ID do carrinho simulado
+            // ID do carrinho simulado
 
             const response = await api.delete(`/cart/products/${userId}/${cartId}`, {
                 data: { product_id: product._id }
@@ -29,7 +32,7 @@ function CardCart({ product, user, onDeleteProduct }) {
                 console.log("Erro ao excluir produto do carrinho");
             }
         } catch (error) {
-            console.error("Erro ao excluir produto do carrinho:", error);
+            console.error("Erro ao excluir produto do carrinho:", error.mensagem);
         }
     }
 

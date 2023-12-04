@@ -44,7 +44,7 @@ const ProductEditModal = ({ isOpen, product, onClose, user_id, Authorization, se
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
-                        "Authorization": `${Authorization}`,
+                        "Authorization": `Bearer ${Authorization}`,
                     },
                 }
             );

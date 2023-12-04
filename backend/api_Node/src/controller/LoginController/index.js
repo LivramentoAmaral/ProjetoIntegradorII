@@ -4,37 +4,43 @@ const UserCliente = require('../../models/UserCliente');
 const bcrypt = require('bcryptjs');
 
 const SessionController = {
-
     async createSession(req, res) {
         const { email, password } = req.body;
-       
-            const user = await UserCliente.findOne({ email });
-            const usercliente = await User.findOne({ email });
-            // Usuário encontrado, retornar os dados do usuário
+
+        try {
+            let user = await UserCliente.findOne({ email });
+            let usercliente = await User.findOne({ email });
+
+            let userType = ''; // Variável para armazenar o tipo de usuário encontrado
+
             if (user) {
                 if (await bcrypt.compare(password, user.password)) {
-                    const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-                        expiresIn: "1d",
+                    userType = 'user'; // Define o tipo de usuário como 'cliente'
+                    const accessToken = jwt.sign({ id: user._id, userType }, process.env.JWT_SECRET, {
+                        expiresIn: '1d',
                     });
                     return res.status(200).json({ accessToken });
                 } else {
-                    return res.status(401).json({ error: "Senha incorreta" });
+                    return res.status(401).json({ error: 'Senha incorreta' });
                 }
-            }else if(usercliente){
+            } else if (usercliente) {
                 if (await bcrypt.compare(password, usercliente.password)) {
-                    const accessToken = jwt.sign({ id: usercliente.id }, process.env.JWT_SECRET, {
-                        expiresIn: "1d",
+                    userType = 'cliente'; // Define o tipo de usuário como 'user'
+                    const accessToken = jwt.sign({ id: usercliente._id, userType }, process.env.JWT_SECRET, {
+                        expiresIn: '1d',
                     });
                     return res.status(200).json({ accessToken });
                 } else {
-                    return res.status(401).json({ error: "Senha incorreta" });
+                    return res.status(401).json({ error: 'Senha incorreta' });
                 }
-            }else{
-                return res.status(401).json({ error: "Usuário não encontrado" });
+            } else {
+                return res.status(401).json({ error: 'Usuário não encontrado' });
             }
-            // return res.status(201).json(usercliente||user);
-        
-    }
+        } catch (error) {
+            console.error("Erro ao criar sessão:", error);
+            return res.status(500).json({ error: 'Erro interno do servidor' });
+        }
+    },
 };
 
 module.exports = SessionController;

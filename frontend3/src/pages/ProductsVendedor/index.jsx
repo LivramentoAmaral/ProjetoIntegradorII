@@ -8,6 +8,7 @@ import style from "./style.module.css";
 import ProductAddModal from "../../components/ProductModal";
 import swal from "sweetalert";
 import AuthContext from "../../context/AuthContext";
+import {jwtDecode} from "jwt-decode";
 
 
 const ProductsVendedor = () => {
@@ -17,8 +18,18 @@ const ProductsVendedor = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const user_id = "65651865198030b2e881aa2f";
-    const Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NjUxODY1MTk4MDMwYjJlODgxYWEyZiIsImlhdCI6MTcwMTQ2NjI1MywiZXhwIjoxNzAxNTUyNjUzfQ.1ZSYmy-0OBNL4X6u2AR4OAdJrX-o0yaL-pbOO2cmF7M'
+    const Authorization = localStorage.getItem("token");
+
+    const getTokenPayload = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          return jwtDecode(token); // Decodifica o token JWT
+        }
+        return null;
+      };
+      
+      const user_id = getTokenPayload()?.id;
+
     let {user,logout} = useContext(AuthContext);
 
     useEffect(() => {
@@ -30,7 +41,7 @@ const ProductsVendedor = () => {
         try {
             const response = await api.get(`/${user_id}/products`, {
                 headers: {
-                    "Authorization": `${Authorization}`,
+                    "Authorization": `Bearer ${Authorization}`,
                 },
             });
             setProducts(response.data);
@@ -67,7 +78,7 @@ const ProductsVendedor = () => {
             const productDetails = await api.get(`/products/${productId}`
             ,{
                 headers: {
-                    "Authorization": `${Authorization}`,
+                    "Authorization": `Bearer ${Authorization}`,
                 },
             });
             const productName = productDetails.data.productName;
@@ -85,7 +96,7 @@ const ProductsVendedor = () => {
                 // Se o usuário confirmar a exclusão, chamar a API para deletar o produto
                 await api.delete(`/products/${user_id}/${productId}`, {
                     headers: {
-                        "Authorization": `${Authorization}`,
+                        "Authorization": `Bearer ${Authorization}`,
                     },
                 });
                 // Atualizar a lista de produtos após a exclusão bem-sucedida
@@ -165,7 +176,7 @@ const ProductsVendedor = () => {
                         </svg>
                     </button>
                     <div className={style.Farm}>
-                        <h3>{userData ? `${userData.username}` : 'Nome da Fazenda'}</h3>
+                        <h3>{userData ? `${userData.farm}` : 'Nome da Fazenda'}</h3>
                     </div>
                 </div>
 
@@ -206,6 +217,7 @@ const ProductsVendedor = () => {
                 isOpen={isAddModalOpen}
                 onClose={() => setIsAddModalOpen(false)}
                 setProducts={setProducts}
+                Authorization={Authorization}
             />
 
             <ProductEditModal
