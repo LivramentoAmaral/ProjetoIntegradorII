@@ -202,6 +202,15 @@
     padding: 10px;
 }
 
+.error{
+    width: 100%;
+    height: 25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .greenLoading {
     background-color: white;
     /* Define a cor verde para o círculo de carregamento */

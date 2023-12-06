@@ -32,8 +32,10 @@ const CartController = {
                 populate: {
                     path: 'username', // Substitua 'createdBy' pelo campo correto que faz referência ao criador do produto
                     model: User // Substitua 'User' pelo modelo correto do usuário
-                }
-            }).populate("username");
+                },
+            
+            });
+            await userCart.populate('username');
 
             return res.status(200).json(userCart);
         } catch (error) {
@@ -98,24 +100,23 @@ const CartController = {
         }
     },
     async addProductToCart(req, res) {
-        const { user_id, cart_id } = req.params;
+        const { cart_id } = req.params;
         const { product_id } = req.body;
-
+    
         try {
-            // Encontrar o carrinho do usuário
-            const cart = await Cart.findById(cart_id);
-
-            // Verificar se o carrinho existe
+            let cart = await Cart.findById(cart_id);
+    
+            // Verificar se o carrinho existe, senão criar um novo
             if (!cart) {
-                return res.status(404).json({ message: "Carrinho não encontrado" });
+                cart = await Cart.create({ _id: cart_id, products: [product_id] });
+            } else {
+                // Adicionar o novo produto ao array de produtos no carrinho
+                cart.products.push(product_id);
             }
-
-            // Adicionar o novo produto ao array de produtos no carrinho
-            cart.products.push(product_id);
-
+    
             // Salvar as alterações no carrinho
             await cart.save();
-
+    
             // Retornar o carrinho atualizado
             const updatedCart = await Cart.findById(cart_id).populate({
                 path: 'products',
@@ -124,13 +125,14 @@ const CartController = {
                     model: User
                 }
             });
-
+    
             return res.status(200).json(updatedCart);
         } catch (error) {
-            return res.status(400).json(error);
+            return res.status(400).json({ message: "Erro ao adicionar produto ao carrinho", error: error.message });
         }
+    
+    
     }
-
 }
 
 module.exports = CartController;

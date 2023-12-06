@@ -16,9 +16,7 @@ function HeaderVendedor(){
                     <ul>
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/">Sair</Link></li>
-                        <li><Link to="/logincliente">Login</Link></li>
-                        <li><Link to="/cadastro">Cadastrar</Link></li>
-                        <li><Link to="/meusproducts/:id">meus products</Link></li>
+                        <li><Link to="/login">Login</Link></li>
                   
                     </ul>
 

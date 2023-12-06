@@ -18,71 +18,71 @@ function Cart() {
 
     const userId = getTokenPayload()?.id;
     const cartId = localStorage.getItem('cartId');
-
-    console.log("card",cartId);
-    console.log("user",userId);
-
-    
-
-
     useEffect(() => {
-        // ID do usuário simulado
-
-        api.get(`/cart/${userId}`)
-            .then(response => {
-                setCartItems(response.data || []);
-            })
-            .catch(error => {
-                console.error("Erro ao buscar os itens do carrinho:", error);
-            });
-    }, []);
+        if (userId && cartId) {
+            api.get(`/cart/${userId}/${cartId}`)
+                .then(response => {
+                    const resposta = response.data;
+                    console.log('Produtos recebidos:', response.data); // Verifique os produtos recebidos
+                    setCartItems(resposta || []);
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar os itens do carrinho:", error);
+                });
+        }
+    }, [userId, cartId]);
 
     // Função para atualizar a lista de produtos no carrinho após a exclusão
     function handleDeleteProduct(productId) {
-        setCartItems(prevCartItems =>
-            prevCartItems.map(cartItem => ({
-                ...cartItem,
-                products: cartItem.products.filter(product => product._id !== productId)
-            }))
-        );
+        setCartItems(prevCartItems => {
+            if (Array.isArray(prevCartItems)) {
+                const updatedCartItems = prevCartItems.map(cartItem => {
+                    if (cartItem && Array.isArray(cartItem.products)) {
+                        const updatedProducts = cartItem.products.filter(product => product._id !== productId);
+                        return { ...cartItem, products: updatedProducts };
+                    }
+                    return cartItem;
+                });
+                return updatedCartItems;
+            } else {
+                return prevCartItems;
+            }
+        });
     }
+
+
+
+    console.log("cartItems", cartItems);
+
 
     return (
         <>
-        <Header />
-        <main className={style.containerCart}>
-            {cartItems.length > 0 ? (
-                <>
+            <Header 
+            cartItems = {cartItems.products}
+            />
+            <main className={style.containerCart}>
                 <div className={style.text}>
                     <h2>Meu carrinho</h2>
                     <p>Resumo dos pedidos</p>
                 </div>
-                {cartItems.map(cartItem => (
-                    <div key={cartItem._id}>
-                        {cartItem.products.map(product => (
-                            <CardCart
-                                key={product._id}
-                                product={product}
-                                user={cartItem.username.username}
-                                onDeleteProduct={handleDeleteProduct}
-                                cartId={cartId}
-                                userId={userId}
-                            />
-                        ))}
-                    </div>
-                ))}
-            </>
-            ) : (
-                
-            <div className={style.containerSemProducts}>
-                <p>Sem produtos no carrinho</p>
-            </div>
+                {cartItems.products && Array.isArray(cartItems.products) && cartItems.products.length > 0 ? (
 
-                
-            )}
-        </main>
-        <Rodape />
-    </>
+                    cartItems.products.map(product => (
+                        <CardCart
+                            key={product._id}
+                            product={product}
+                            onDeleteProduct={handleDeleteProduct}
+                            userId={userId}
+                            cartId={cartId}
+                        />
+                    ))
+                ) : (
+                    <div className={style.containerSemProducts}><p>Sem produtos no carrinho</p></div>
+                )}
+
+            </main>
+            <Rodape />
+        </>
     );
 }
 

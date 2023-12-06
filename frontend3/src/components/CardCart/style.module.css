@@ -42,9 +42,38 @@
     color: #000;
 }
 
-.nomePrice p{
+.nomePrice:nth-child(1) {
     font-size: 20px;
-}       
+}
+
+.nomePrice p:nth-child(2) {
+    font-size: 20px;
+    color: #529641;
+}
+.quantity {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.quantity label {
+    font-size: 18px;    
+    line-height: 1.8;
+    color: #555;
+}
+
+.quantity input {
+    width: 45%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
 
 .Resumopedido{
     width: 50%;

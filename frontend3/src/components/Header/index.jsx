@@ -3,7 +3,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default function Header() {
+export default function Header({ cartItems}) {
+
+   
 
     return (
         <header className={style.header}>

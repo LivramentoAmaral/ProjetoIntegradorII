@@ -33,7 +33,7 @@ function FormCadastroCliente({ setCadastroRealizado }) {
 
                 setTimeout(() => {
                     setIsLoading(false);
-                    navigate("/logincliente");
+                    navigate("/login");
                 }, 3000);
             }
         } catch (error) {

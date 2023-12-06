@@ -41,7 +41,7 @@ function FormCadastroVendedor({ setCadastroRealizado }) {
                 setCadastroRealizado(true);
 
                 setTimeout(() => {
-                    navigate("/loginvendedor");
+                    navigate("/login");
                 }, 3000);
             }
         } catch (error) {
