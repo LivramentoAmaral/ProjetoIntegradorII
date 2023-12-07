@@ -3,11 +3,12 @@ import style from "./style.module.css";
 import imgform from "../../assets/imglogin.png";
 import { useNavigate } from "react-router-dom";
 import api from "../../api";
+import Swal from 'sweetalert2';
 
 function FormLoginCliente() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -33,16 +34,48 @@ function FormLoginCliente() {
 
                 if (userType === "usercliente") {
                     console.log("Login realizado com sucesso como cliente", userType);
-                    history("/");
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Login realizado com sucesso!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    return navigate("/");
                 } else {
                     console.log("Login realizado com sucesso como usuário", userType);
-                    history("/meusproducts");
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Login realizado com sucesso!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    return navigate("/meusproducts");
                 }
             } else {
                 console.log("Falha no login");
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Falha no login!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
             }
         } catch (error) {
             console.error("Erro de autenticação:", error.message);
+
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Falha no login!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return setEmail("") ,setSenha("");
         }
     };
 

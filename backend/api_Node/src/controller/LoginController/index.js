@@ -16,7 +16,7 @@ const SessionController = {
             if (user) {
                 if (await bcrypt.compare(password, user.password)) {
                     userType = 'user'; // Define o tipo de usuário como 'cliente'
-                    const accessToken = jwt.sign({ id: user._id, userType, username:usercliente.username }, process.env.JWT_SECRET, {
+                    const accessToken = jwt.sign({ id: user._id, userType, username:user.username }, process.env.JWT_SECRET, {
                         expiresIn: '1d',
                     });
                     return res.status(200).json({ accessToken });

@@ -1,10 +1,9 @@
 import React from 'react';
-import style from "./style.module.css"
-import svg1 from"../../assets/social.svg"
-import svg2 from"../../assets/social1.svg"
-import svg3 from"../../assets/social2.svg"
-import svg4 from"../../assets/social3.svg"
-import svg5 from"../../assets/social5.svg"
+import svg1 from "../../assets/social.svg";
+import svg3 from "../../assets/social2.svg";
+import svg4 from "../../assets/social3.svg";
+import svg5 from "../../assets/social5.svg";
+import style from "./style.module.css";
 
 
 function Rodape() {
@@ -20,11 +19,10 @@ function Rodape() {
                 <h1>Siga-nos</h1>
                 <div className={style.icons}>
                     
-                    <a href=""><img src={svg1} alt="" /></a>
-                    <a href=""><img src={svg2} alt="" /></a>
+                    <a href="https://www.instagram.com/marcos_amaral2002/"><img src={svg1} alt="" /></a>
                     <a href=""><img src={svg3} alt="" /></a>
                     <a href=""><img src={svg4} alt="" /></a>
-                    <a href=""><img src={svg5} alt="" /></a>
+                    <a href="https://www.facebook.com/marcosdolivramentoamaral.livramentoamaral"><img src={svg5} alt="" /></a>
 
                 </div>
             </div>

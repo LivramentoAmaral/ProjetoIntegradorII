@@ -80,6 +80,20 @@
 
 }
 
+.menu>ul>li>button {
+    color: #FFF;
+    background-color: transparent;
+    font-size: 20px;
+    border: none;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+
 .countNotification {
     width: 10px;
     height: 10px;
