@@ -1,5 +1,6 @@
 const Product = require('../../models/Products')
-const User = require('../../models/User')
+const User = require('../../models/User');
+const { use } = require('../../routes');
 
 const ProductController = {
 
@@ -86,7 +87,8 @@ const ProductController = {
                         ...product.toObject(),
                         username: {
                             _id: user._id,
-                            farm: user.farm
+                            farm: user.farm,
+                            username: user.username,
                             // Adicione aqui outros campos do usuário que você deseja incluir nos produtos
                         }
                     };

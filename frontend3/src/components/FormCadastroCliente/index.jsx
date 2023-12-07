@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import api from "../../api/index";
 import style from "./style.module.css";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 function FormCadastroCliente({ setCadastroRealizado }) {
     const [primeiroNome, setPrimeiroNome] = useState("");
@@ -17,7 +18,7 @@ function FormCadastroCliente({ setCadastroRealizado }) {
         e.preventDefault();
 
         const novoUsuario = {
-            name: `${primeiroNome} ${sobrenome}`,
+            username: `${primeiroNome} ${sobrenome}`,
             email: email,
             password: senha,
         };
@@ -30,11 +31,20 @@ function FormCadastroCliente({ setCadastroRealizado }) {
             if (response.status === 201) {
                 setSucesso(true);
                 setCadastroRealizado(true);
+                
+                Swal.fire({
+                    title: "Cadastro realizado com sucesso!",
+                    icon: "success",
+                    timer: 3000,
+                });
 
-                setTimeout(() => {
-                    setIsLoading(false);
-                    navigate("/login");
-                }, 3000);
+                return navigate("/login");
+
+
+                // setTimeout(() => {
+                //     setIsLoading(false);
+                //     navigate("/login");
+                // }, 3000);
             }
         } catch (error) {
             setIsLoading(false);

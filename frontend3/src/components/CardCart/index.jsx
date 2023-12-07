@@ -2,9 +2,8 @@ import React from "react";
 import style from "./style.module.css";
 import api from "../../api/index";
 
-function CardCart({ product, user, onDeleteProduct, userId, cartId }) {
+function CardCart({index, product, user, onDeleteProduct, userId, cartId }) {
     const { productName, productDescription, productPrice, productImage, username } = product;
-
     const [quantity, setQuantity] = React.useState(1 );
 
 
@@ -21,6 +20,7 @@ function CardCart({ product, user, onDeleteProduct, userId, cartId }) {
 
     const mensagem = `Olá ${product.username.username}!%0a%0aEspero que esteja tudo bem. Me deparei com o seu produto ${productName} (${quantity} unidade(s)) e fiquei muito interessado! Gostaria bastante de adquiri-lo.%0a%0aVocê poderia me fornecer mais informações sobre disponibilidade, preço e formas de pagamento? Estou realmente ansioso para fazer essa aquisição o mais rápido possível.%0a%0aAgradeço desde já e aguardo sua resposta!%0a%0aAtenciosamente,%0a${user}`;
 
+    console.log(mensagem)
     function openLink() {
         window.open(`https://whatsa.me/55${product.username.phoneWhatzap}/?t=${mensagem}`);
     }
@@ -33,7 +33,7 @@ function CardCart({ product, user, onDeleteProduct, userId, cartId }) {
 
             if (response.status === 200) {
                 console.log("Produto excluído do carrinho com sucesso!");
-                onDeleteProduct(product._id);
+                onDeleteProduct(index);
             } else {
                 console.log("Erro ao excluir produto do carrinho");
             }

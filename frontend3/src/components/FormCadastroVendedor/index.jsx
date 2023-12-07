@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import api from "../../api/index";
 import style from "./style.module.css";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+
 
 function FormCadastroVendedor({ setCadastroRealizado }) {
     const [primeiroNome, setPrimeiroNome] = useState("");
@@ -40,9 +42,17 @@ function FormCadastroVendedor({ setCadastroRealizado }) {
                 setSucesso(true);
                 setCadastroRealizado(true);
 
-                setTimeout(() => {
-                    navigate("/login");
-                }, 3000);
+                Swal.fire({
+                    title: "Cadastro realizado com sucesso!",
+                    icon: "success",
+                    timer: 3000,
+                });
+
+                return navigate("/login");
+
+            //     setTimeout(() => { 
+            //         navigate("/login");
+            //     }, 3000);
             }
         } catch (error) {
             console.error("Erro ao criar usuário:", error);

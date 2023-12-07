@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Header from "../../components/Header/index.jsx";
 import style from "./style.module.css";
 import Rodape from "../../components/Footer/index.jsx";
 import CardCart from "../../components/CardCart/index.jsx";
 import api from "../../api/index.jsx";
 import { jwtDecode } from "jwt-decode";
+
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
@@ -16,7 +17,10 @@ function Cart() {
         return null;
     };
 
+    
+
     const userId = getTokenPayload()?.id;
+    const  user_name = getTokenPayload()?.username;
     const cartId = localStorage.getItem('cartId');
     useEffect(() => {
         if (userId && cartId) {
@@ -32,33 +36,24 @@ function Cart() {
         }
     }, [userId, cartId]);
 
-    // Função para atualizar a lista de produtos no carrinho após a exclusão
-    function handleDeleteProduct(productId) {
-        setCartItems(prevCartItems => {
-            if (Array.isArray(prevCartItems)) {
-                const updatedCartItems = prevCartItems.map(cartItem => {
-                    if (cartItem && Array.isArray(cartItem.products)) {
-                        const updatedProducts = cartItem.products.filter(product => product._id !== productId);
-                        return { ...cartItem, products: updatedProducts };
-                    }
-                    return cartItem;
-                });
-                return updatedCartItems;
-            } else {
-                return prevCartItems;
-            }
+
+    function handleDeleteProduct(index) {
+        const updatedProducts = [...cartItems.products];
+
+        updatedProducts.splice(index, 1);
+
+        setCartItems({
+            ...cartItems,
+            products: updatedProducts
         });
     }
 
-
-
-    console.log("cartItems", cartItems);
-
+    console.log()
 
     return (
         <>
-            <Header 
-            cartItems = {cartItems.products}
+            <Header
+                cartItems={cartItems.products}
             />
             <main className={style.containerCart}>
                 <div className={style.text}>
@@ -67,13 +62,15 @@ function Cart() {
                 </div>
                 {cartItems.products && Array.isArray(cartItems.products) && cartItems.products.length > 0 ? (
 
-                    cartItems.products.map(product => (
+                    cartItems.products.map((product, index) => (
                         <CardCart
+                            index={index}
                             key={product._id}
                             product={product}
                             onDeleteProduct={handleDeleteProduct}
                             userId={userId}
                             cartId={cartId}
+                            user={user_name}
                         />
                     ))
                 ) : (

@@ -8,7 +8,7 @@ import ProductsVendedor from "../pages/ProductsVendedor";
 import Sobre from "../pages/Sobre";
 import Recuperar from "../pages/Recuperar";
 import NovaSenha from "../pages/NovaSenha";
-import PrivateRoute from "../utils/PrivateRoute";
+// import PrivateRoute from "../utils/PrivateRoute";
 import { AuthProvider } from "../context/AuthContext";
 import Cart from "../pages/Cart";
 

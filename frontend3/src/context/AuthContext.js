@@ -4,7 +4,7 @@ const AuthContext = createContext()
 
 export default AuthContext;
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
 
     let [user, setUser] = useState(null)
     let [authTokens, setAuthTokens] = useState(null)
@@ -24,7 +24,7 @@ export const AuthProvider = ({children}) => {
         logoutUser: logoutUser,
     }
 
-    return(
+    return (
         <AuthContext.Provider value={contextData}>
             {children}
         </AuthContext.Provider>
