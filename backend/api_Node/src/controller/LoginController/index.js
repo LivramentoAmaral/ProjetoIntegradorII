@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
 const UserCliente = require('../../models/UserCliente');
+const Cart = require('../../models/Cart');
 const bcrypt = require('bcryptjs');
+
 
 const SessionController = {
     async createSession(req, res) {
@@ -26,8 +28,8 @@ const SessionController = {
             } else if (usercliente) {
                 if (await bcrypt.compare(password, usercliente.password)) {
                     userType = 'cliente'; // Define o tipo de usuário como 'user'
-                    const accessToken = jwt.sign({ id: usercliente._id, userType, username: usercliente.username }, process.env.JWT_SECRET, {
-                        expiresIn: '1d',
+                    const accessToken = jwt.sign({ id: usercliente._id, userType, username: usercliente.username  }, process.env.JWT_SECRET, {
+                        expiresIn: '1d', 
                     });
                     return res.status(200).json({ accessToken });
                 } else {

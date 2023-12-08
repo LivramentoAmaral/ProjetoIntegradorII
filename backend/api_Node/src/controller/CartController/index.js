@@ -8,7 +8,6 @@ const CartController = {
     async createCart(req, res) {
         const bodyData = req.body;
         const { user_id } = req.params; // Obtém o user_id da URL
-        console.log(bodyData);
         try {
             const createCart = await Cart.create({
                 ...bodyData,
@@ -33,7 +32,7 @@ const CartController = {
                     path: 'username', // Substitua 'createdBy' pelo campo correto que faz referência ao criador do produto
                     model: User // Substitua 'User' pelo modelo correto do usuário
                 },
-            
+
             });
             await userCart.populate('username');
 
@@ -62,7 +61,7 @@ const CartController = {
     },
 
     async deleteProductFromCart(req, res) {
-        const { user_id, cart_id} = req.params;
+        const { user_id, cart_id } = req.params;
         const { product_id } = req.body;
 
         try {
@@ -102,10 +101,10 @@ const CartController = {
     async addProductToCart(req, res) {
         const { cart_id } = req.params;
         const { product_id } = req.body;
-    
+
         try {
             let cart = await Cart.findById(cart_id);
-    
+
             // Verificar se o carrinho existe, senão criar um novo
             if (!cart) {
                 cart = await Cart.create({ _id: cart_id, products: [product_id] });
@@ -113,10 +112,10 @@ const CartController = {
                 // Adicionar o novo produto ao array de produtos no carrinho
                 cart.products.push(product_id);
             }
-    
+
             // Salvar as alterações no carrinho
             await cart.save();
-    
+
             // Retornar o carrinho atualizado
             const updatedCart = await Cart.findById(cart_id).populate({
                 path: 'products',
@@ -125,14 +124,31 @@ const CartController = {
                     model: User
                 }
             });
-    
+
             return res.status(200).json(updatedCart);
         } catch (error) {
             return res.status(400).json({ message: "Erro ao adicionar produto ao carrinho", error: error.message });
         }
+
+
+    },
+
+    async getCartIdByUserId(req, res) {
+        const { user_id } = req.params;
     
+        try {
+            const cart = await Cart.findOne({ username: user_id }); 
+            console.log("cart",cart)// Verifique se o campo é 'username' ou 'user_id'
+            if (cart) {
+                return res.status(200).json({ cartId: cart._id });
+            } else {
+                return res.status(404).json({ message: 'Carrinho não encontrado para este usuário' });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: 'Erro ao buscar o carrinho do usuário', error: error.message });
+        }
+    },
     
-    }
 }
 
 module.exports = CartController;

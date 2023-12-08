@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
+import { jwtDecode } from "jwt-decode";
+import React, { useContext, useEffect, useState } from "react";
+import swal from "sweetalert";
 import api from "../../api";
-import HeaderVendedor from "../../components/HeaderVendedor";
+import Rodape from "../../components/Footer";
+import Header from "../../components/Header";
 import ProductEditModal from "../../components/ProductEditModal";
 import ProductItem from "../../components/ProductIntem";
-import Rodape from "../../components/Footer";
-import style from "./style.module.css";
 import ProductAddModal from "../../components/ProductModal";
-import swal from "sweetalert";
 import AuthContext from "../../context/AuthContext";
-import {jwtDecode} from "jwt-decode";
+import style from "./style.module.css";
 
 
 const ProductsVendedor = () => {
@@ -145,7 +145,7 @@ const ProductsVendedor = () => {
 
     return (
         <>
-            <HeaderVendedor />
+            <Header/>
             <br />
             <main className={style.mainProdutor}
                 style={

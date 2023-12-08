@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/index.jsx";
 import style from "./style.module.css";
 import Rodape from "../../components/Footer/index.jsx";
@@ -6,29 +6,48 @@ import CardCart from "../../components/CardCart/index.jsx";
 import api from "../../api/index.jsx";
 import { jwtDecode } from "jwt-decode";
 
-
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
-    const getTokenPayload = () => {
+    const [cartId, setCartId] = useState(null);
+    const [userId, setUserId] = useState(null);
+    const [userName, setUserName] = useState(null);
+
+    useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            return jwtDecode(token); // Decodifica o token JWT
+            const decodedToken = jwtDecode(token);
+            setUserId(decodedToken?.id);
+            setUserName(decodedToken?.username);
         }
-        return null;
-    };
+    }, []);
 
-    
+    useEffect(() => {
+        if (userId) {
+            const getCartIdByUserId = async () => {
+                try {
+                    const cartResponse = await api.get(`/cart/getCartIdByUserId/${userId}`);
+                    if (cartResponse.status === 200) {
+                        const cartId = cartResponse.data._id;
+                        console.log('ID do carrinho:', cartId);
+                        setCartId(cartId);
+                    } else {
+                        throw new Error('Erro ao obter o ID do carrinho do usuário');
+                    }
+                } catch (error) {
+                    console.error('Erro ao obter o ID do carrinho:', error.message);
+                }
+            };
+            getCartIdByUserId();
+        }
+    }, [userId]);
 
-    const userId = getTokenPayload()?.id;
-    const  user_name = getTokenPayload()?.username;
-    const cartId = localStorage.getItem('cartId');
     useEffect(() => {
         if (userId && cartId) {
             api.get(`/cart/${userId}/${cartId}`)
                 .then(response => {
                     const resposta = response.data;
                     console.log('Produtos recebidos:', response.data); // Verifique os produtos recebidos
-                    setCartItems(resposta || []);
+                    setCartItems(resposta.products || []);
                 })
                 .catch(error => {
                     console.error("Erro ao buscar os itens do carrinho:", error);
@@ -36,33 +55,24 @@ function Cart() {
         }
     }, [userId, cartId]);
 
-
     function handleDeleteProduct(index) {
-        const updatedProducts = [...cartItems.products];
+        const updatedProducts = [...cartItems];
 
         updatedProducts.splice(index, 1);
 
-        setCartItems({
-            ...cartItems,
-            products: updatedProducts
-        });
+        setCartItems(updatedProducts);
     }
-
-    console.log()
 
     return (
         <>
-            <Header
-                cartItems={cartItems.products}
-            />
+            <Header cartItems={cartItems} />
             <main className={style.containerCart}>
                 <div className={style.text}>
                     <h2>Meu carrinho</h2>
                     <p>Resumo dos pedidos</p>
                 </div>
-                {cartItems.products && Array.isArray(cartItems.products) && cartItems.products.length > 0 ? (
-
-                    cartItems.products.map((product, index) => (
+                {cartItems.length > 0 ? (
+                    cartItems.map((product, index) => (
                         <CardCart
                             index={index}
                             key={product._id}
@@ -70,13 +80,12 @@ function Cart() {
                             onDeleteProduct={handleDeleteProduct}
                             userId={userId}
                             cartId={cartId}
-                            user={user_name}
+                            user={userName}
                         />
                     ))
                 ) : (
                     <div className={style.containerSemProducts}><p>Sem produtos no carrinho</p></div>
                 )}
-
             </main>
             <Rodape />
         </>

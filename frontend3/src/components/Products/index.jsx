@@ -14,6 +14,7 @@ function ProductCard({ searchTerm }) {
     const navigate = useNavigate();
     const [cartId, setCartId] = useState(null);
 
+
     const getTokenPayload = () => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -47,73 +48,120 @@ function ProductCard({ searchTerm }) {
     }, []);
 
 
-    const addToCart = async (productId) => {
-        try {
-            const token = localStorage.getItem('token');
-            const userId = token ? jwtDecode(token)?.id : null;
-            const cartId = localStorage.getItem('cartId');
-
-            if (!userId) {
-                console.log('Usuário não está logado ou cadastrado');
-                Swal.fire({
-                    text: 'Você precisa estar logado para adicionar produtos ao carrinho!',
-                    icon: 'warning',
-                    confirmButtonText: 'OK'
-                });
-                navigate('/login');
-                return;
-            }
-
-            if (userId && cartId) {
-                const cartResponse = await api.get(`/cart/${userId}/${cartId}`);
-                const cartItems = cartResponse.data.products;
-
-                const existingProduct = cartItems.find(item => item._id === productId);
-
-                if (existingProduct) {
-                    // Mostrar uma mensagem ao usuário informando que o produto já está no carrinho
-                    Swal.fire({
-                        text: 'Este produto já está no carrinho!',
-                        icon: 'warning',
-                        confirmButtonText: 'OK'
-                    });
-                    return navigate('/cart');
-                } else {
-                    const response = await api.post(`/cart/${userId}/${cartId}`, {
-                        product_id: productId
-                    });
-
-                    if (response.status === 200) {
-                        setCartId(response.data._id);
-                        localStorage.setItem('cartId', response.data._id);
-                        console.log('Produto adicionado ao carrinho com sucesso!');
-
-                        // Mostrar uma mensagem ao usuário informando que o produto foi adicionado ao carrinho
-                        Swal.fire({
-                            text: 'Produto adicionado ao carrinho com sucesso!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                        return navigate('/cart');
-                    } else {
-                        setError(`Erro ao adicionar produto ao carrinho: ${response.statusText}`);
-
-                        // Mostrar uma mensagem ao usuário informando que houve um erro ao adicionar o produto ao carrinho
-                        Swal.fire({
-                            text: 'Erro ao adicionar produto ao carrinho\n tente novamente email ou senha incorreto!',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                }
-            }
-
-            // Se o produto não estiver no carrinho, adicione-o
-
-        } catch (error) {
-            setError(`Erro ao adicionar produto ao carrinho: ${error.message}`);
+   // Função para obter o cartId do usuário
+const getCartIdByUserId = async () => {
+    try {
+        const cartResponse = await api.get(`/cart/getCartIdByUserId/${userId}`);
+        if (cartResponse.status === 200) {
+            const cartId = cartResponse.data.cartId;
+            return cartId;
+        } else {
+            throw new Error('Erro ao obter o cartId do usuário');
         }
-    };
+    } catch (error) {
+        console.error('Erro ao obter o cartId:', error.message);
+        return null;
+    }
+};
+
+// Função para criar um novo carrinho para o usuário
+const createCartForUser = async () => {
+    try {
+        const createCartResponse = await api.post(`/cart/${userId}`);
+        if (createCartResponse.status === 201) {
+            const cartId = createCartResponse.data._id;
+            localStorage.setItem('cartId', cartId);
+            return cartId;
+        } else {
+            throw new Error('Erro ao criar um novo carrinho para o usuário');
+        }
+    } catch (error) {
+        console.error('Erro ao criar um novo carrinho:', error.message);
+        return null;
+    }
+};
+
+// Função para adicionar um produto ao carrinho
+const addToCart = async (productId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const userId = token ? jwtDecode(token)?.id : null;
+        let cartId = localStorage.getItem('cartId');
+        
+        if (!userId) {
+            console.log('Usuário não está logado ou cadastrado');
+            Swal.fire({
+                text: 'Você precisa estar logado para adicionar produtos ao carrinho!',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+            navigate('/login');
+            return;
+        }
+
+        if (!cartId) {
+            // Obtém o cartId do usuário usando a função getCartIdByUserId
+            cartId = await getCartIdByUserId(userId);
+            if (!cartId) {
+                // Se não houver um cartId, cria um novo carrinho
+                cartId = await createCartForUser(userId);
+                if (cartId) {
+                    localStorage.setItem('cartId', cartId);
+                } else {
+                    throw new Error('Não foi possível criar um novo carrinho para o usuário');
+                }
+            } else {
+                localStorage.setItem('cartId', cartId);
+            }
+        }
+
+        // Verifica se o produto já está no carrinho e adiciona o produto ao carrinho se não estiver presente
+        const cartResponse = await api.get(`/cart/${userId}/${cartId}`);
+        const cartItems = cartResponse.data.products;
+        const existingProduct = cartItems.find(item => item._id === productId);
+
+        if (existingProduct) {
+            // Mostra mensagem ao usuário informando que o produto já está no carrinho
+            Swal.fire({
+                text: 'Este produto já está no carrinho!',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+            return navigate('/cart');
+        }
+
+        // Adiciona o produto ao carrinho
+        const response = await api.post(`/cart/${userId}/${cartId}`, {
+            product_id: productId
+        });
+
+        if (response.status === 200) {
+            localStorage.setItem('cartId', response.data._id);
+            console.log('Produto adicionado ao carrinho com sucesso!');
+
+            // Mostra mensagem ao usuário informando que o produto foi adicionado ao carrinho
+            Swal.fire({
+                text: 'Produto adicionado ao carrinho com sucesso!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            return navigate('/cart');
+        } else {
+            setError(`Erro ao adicionar produto ao carrinho: ${response.statusText}`);
+
+            // Mostra mensagem ao usuário informando que houve um erro ao adicionar o produto ao carrinho
+            Swal.fire({
+                text: 'Erro ao adicionar produto ao carrinho\n tente novamente email ou senha incorreto!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    } catch (error) {
+        setError(`Erro ao adicionar produto ao carrinho: ${error.message}`);
+    }
+};
+
+    
 
     const [selectedProduct, setSelectedProduct] = useState(null);
 
