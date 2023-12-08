@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import api from "../../api";
 import Rodape from "../../components/Footer";
@@ -7,7 +7,6 @@ import Header from "../../components/Header";
 import ProductEditModal from "../../components/ProductEditModal";
 import ProductItem from "../../components/ProductIntem";
 import ProductAddModal from "../../components/ProductModal";
-import AuthContext from "../../context/AuthContext";
 import style from "./style.module.css";
 
 
@@ -30,7 +29,6 @@ const ProductsVendedor = () => {
       
       const user_id = getTokenPayload()?.id;
 
-    let {user,logout} = useContext(AuthContext);
 
     useEffect(() => {
         fetchUserProducts();

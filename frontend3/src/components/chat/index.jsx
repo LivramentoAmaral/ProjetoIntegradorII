@@ -43,7 +43,7 @@ const FlowiseChatbot = () => {
                 customIconSrc: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg',
               },
               chatWindow: {
-                welcomeMessage: 'Olá seija bem-vindo chatbot?',
+                welcomeMessage: 'Olá seija bem-vindo chatbot aq vc pode pedir informações sobre a plataforma e de desrições simples ?',
                 backgroundColor: '#ffffff',
                 height: 600,
                 width: 400,

@@ -11,6 +11,7 @@ function Cart() {
     const [cartId, setCartId] = useState(null);
     const [userId, setUserId] = useState(null);
     const [userName, setUserName] = useState(null);
+    const [isLoading, setIsLoading] = useState(true); // Novo estado para controlar o carregamento
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -51,42 +52,55 @@ function Cart() {
                 })
                 .catch(error => {
                     console.error("Erro ao buscar os itens do carrinho:", error);
+                })
+                .finally(() => {
+                    setIsLoading(false); // Marca o carregamento como concluído após receber os dados
                 });
         }
     }, [userId, cartId]);
 
     function handleDeleteProduct(index) {
         const updatedProducts = [...cartItems];
-
         updatedProducts.splice(index, 1);
-
         setCartItems(updatedProducts);
     }
 
     return (
         <>
             <Header cartItems={cartItems} />
-            <main className={style.containerCart}>
-                <div className={style.text}>
-                    <h2>Meu carrinho</h2>
-                    <p>Resumo dos pedidos</p>
+            {isLoading ? ( // Exibe o indicador de carregamento enquanto os dados são buscados
+                <div className={style.loadingContainer}>
+                    <div className={`${style.loading} ${style.greenLoading}`}></div>
+                    <p>Carregando Produtos Do Carrinho ...</p>
                 </div>
-                {cartItems.length > 0 ? (
-                    cartItems.map((product, index) => (
-                        <CardCart
-                            index={index}
-                            key={product._id}
-                            product={product}
-                            onDeleteProduct={handleDeleteProduct}
-                            userId={userId}
-                            cartId={cartId}
-                            user={userName}
-                        />
-                    ))
-                ) : (
-                    <div className={style.containerSemProducts}><p>Sem produtos no carrinho</p></div>
-                )}
-            </main>
+            ) : (
+                <>
+                    {cartItems.length > 0 && (
+                        <main className={style.containerCart}>
+                            <div className={style.text}>
+                                <h2>Meu carrinho</h2>
+                                <p>Resumo dos pedidos</p>
+                            </div>
+                            {cartItems.map((product, index) => (
+                                <CardCart
+                                    index={index}
+                                    key={product._id}
+                                    product={product}
+                                    onDeleteProduct={handleDeleteProduct}
+                                    userId={userId}
+                                    cartId={cartId}
+                                    user={userName}
+                                />
+                            ))}
+                        </main>
+                    )}
+                    {cartItems.length === 0 && (
+                        <div className={style.containerSemProducts}>
+                            <p>Sem produtos no carrinho</p>
+                        </div>
+                    )}
+                </>
+            )}
             <Rodape />
         </>
     );

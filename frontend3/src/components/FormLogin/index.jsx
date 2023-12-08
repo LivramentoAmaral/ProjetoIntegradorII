@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./style.module.css";
 import imgform from "../../assets/imglogin.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../api";
 import Swal from 'sweetalert2';
 
@@ -97,8 +97,19 @@ function FormLoginCliente() {
                         onChange={(e) => setSenha(e.target.value)}
                     />
                     <button type="submit">Login</button>
+
+                    <div className={style.links}>
+                        <Link href="/recuperarsenha">Esqueceu a senha?</Link>
+                        <p>ou</p>
+                        <Link href="/cadastro">Cadastrar-se</Link>
+
+                    </div>
+                    
                 </div>
+
             </form>
+
+
 
             <div className={style.formRight}>
                 <h2>Entre para desvendar oportunidades: vender, comprar e se encantar na nossa feira online!</h2>
