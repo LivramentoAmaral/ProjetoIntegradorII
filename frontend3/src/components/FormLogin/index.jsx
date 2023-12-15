@@ -101,7 +101,7 @@ function FormLoginCliente() {
                     <div className={style.links}>
                         <Link href="/recuperarsenha">Esqueceu a senha?</Link>
                         <p>ou</p>
-                        <Link href="/cadastro">Cadastrar-se</Link>
+                        <Link to="/cadastro">Cadastrar-se</Link>
 
                     </div>
                     
